@@ -1,229 +1,319 @@
 /* =========================================================
-   D'Zen Derma — Homepage interactions
+   D'Zen Derma - JavaScript
    ========================================================= */
 
-(() => {
-  const $  = (s, c = document) => c.querySelector(s);
-  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+(function() {
+  'use strict';
 
-  /* ---------- Loader ---------- */
-  const loader = $('#loader');
-  window.addEventListener('load', () => {
-    setTimeout(() => loader && loader.classList.add('is-done'), 1300);
+  var $ = document.querySelector.bind(document);
+  var $$ = document.querySelectorAll.bind(document);
+
+  /* ---------- Header & Scroll Vars ---------- */
+  var header = $('.site-header');
+  var lastScroll = 0;
+
+  /* ---------- Native Scroll Logic ---------- */
+  window.addEventListener('scroll', function() {
+    var scroll = window.scrollY;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? (scroll / max) * 100 : 0;
+
+    // Scroll Progress
+    var bar = $('.scroll-progress span');
+    if (bar) bar.style.width = pct + '%';
+
+    // Header Hide on Scroll
+    if (header) {
+      if (scroll > lastScroll && scroll > 200) {
+        header.classList.add('hidden');
+      } else {
+        header.classList.remove('hidden');
+      }
+    }
+    lastScroll = scroll;
   });
 
-  /* ---------- Custom cursor ---------- */
-  const cursor = $('#cursor');
-  const cursorDot = $('#cursorDot');
-  let cx = 0, cy = 0, tx = 0, ty = 0;
+  /* ---------- Smooth Anchor Links ---------- */
+  $$('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var targetId = this.getAttribute('href');
+      if (targetId === '#') return;
 
-  if (matchMedia('(pointer:fine)').matches) {
-    document.addEventListener('mousemove', (e) => {
-      tx = e.clientX; ty = e.clientY;
-      cursorDot.style.transform = `translate3d(${tx - 2}px, ${ty - 2}px, 0)`;
-    });
-    const tick = () => {
-      cx += (tx - cx) * 0.16;
-      cy += (ty - cy) * 0.16;
-      cursor.style.transform = `translate3d(${cx - 18}px, ${cy - 18}px, 0)`;
-      requestAnimationFrame(tick);
-    };
-    tick();
-
-    const hoverables = 'a, button, .pillars-list li, .concern, .principle, .step, .founder, .spread, .post, .loc, .press li, .quote-dots button, input, select';
-    document.addEventListener('mouseover', (e) => {
-      if (e.target.closest(hoverables)) {
-        cursor.classList.add('is-hover');
-        const label = e.target.closest('a, .concern, .post, .founder, .spread, .loc');
-        cursor.querySelector('span').textContent = label ? '↗' : '';
+      var target = $(targetId);
+      if (target) {
+        e.preventDefault();
+        var offset = 80;
+        var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
       }
     });
-    document.addEventListener('mouseout', (e) => {
-      if (e.target.closest(hoverables)) {
-        cursor.classList.remove('is-hover');
-        cursor.querySelector('span').textContent = '';
-      }
+  });
+
+  /* ---------- Mobile Menu ---------- */
+  var menuToggle = $('#menuToggle');
+  var mobileMenu = $('#mobileMenu');
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', function() {
+      var isOpen = menuToggle.classList.toggle('is-open');
+      mobileMenu.classList.toggle('is-open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    $$('.mobile-nav a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        menuToggle.classList.remove('is-open');
+        mobileMenu.classList.remove('is-open');
+        document.body.style.overflow = '';
+      });
     });
   }
 
-  /* ---------- Header scroll state ---------- */
-  const header = $('#header');
-  let lastY = 0;
-  const onScroll = () => {
-    const y = window.scrollY;
-    header.classList.toggle('is-scrolled', y > 30);
-    if (y > 240 && y > lastY) header.classList.add('is-hidden');
-    else header.classList.remove('is-hidden');
-    lastY = y;
+  /* ---------- FAQ Accordion ---------- */
+  $$('.faq-item').forEach(function(item) {
+    var question = item.querySelector('.faq-question');
+    var answer = item.querySelector('.faq-answer');
 
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = max > 0 ? (y / max) * 100 : 0;
-    const bar = document.querySelector('#progress span');
-    if (bar) bar.style.width = pct + '%';
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
+    if (question && answer) {
+      question.addEventListener('click', function() {
+        var isOpen = item.classList.contains('is-open');
 
-  /* ---------- Mobile menu ---------- */
-  const menuToggle = $('#menuToggle');
-  const mobileMenu = $('#mobileMenu');
-  menuToggle?.addEventListener('click', () => {
-    const open = menuToggle.classList.toggle('is-open');
-    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    mobileMenu.classList.toggle('is-open', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  $$('.mobile-menu a').forEach(a => a.addEventListener('click', () => {
-    menuToggle.classList.remove('is-open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    mobileMenu.classList.remove('is-open');
-    document.body.style.overflow = '';
-  }));
+        // Close all
+        $$('.faq-item').forEach(function(i) {
+          i.classList.remove('is-open');
+          var a = i.querySelector('.faq-answer');
+          if (a) a.style.maxHeight = '0';
+        });
 
-  /* ---------- Mega Menu - close on outside click ---------- */
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.mega-menu-wrapper')) {
-      $$('.mega-menu-wrapper').forEach(w => w.classList.remove('active'));
+        // Toggle current
+        if (!isOpen) {
+          item.classList.add('is-open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
     }
   });
 
-  /* ---------- Mega Menu - keyboard accessibility ---------- */
-  $$('.mega-menu-wrapper').forEach(wrapper => {
-    const link = wrapper.querySelector('.nav-link');
-    const menu = wrapper.querySelector('.mega-menu');
-    if (!link || !menu) return;
+  /* ---------- Reveal on Scroll ---------- */
+  var revealItems = $$('.reveal');
 
-    link.addEventListener('focus', () => {
-      $$('.mega-menu-wrapper').forEach(w => w.classList.remove('active'));
-      wrapper.classList.add('active');
-    });
-  });
-
-  /* ---------- Reveal on scroll ---------- */
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('is-in');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-  $$('.reveal').forEach(el => io.observe(el));
-
-  /* ---------- Number count-up ---------- */
-  const counters = $$('[data-count]');
-  const counterIO = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      const target = parseInt(el.dataset.count, 10);
-      const dur = 1800;
-      const t0 = performance.now();
-      const fmt = target >= 1000 ? (n) => n.toLocaleString('en-IN') : (n) => String(n);
-      const step = (t) => {
-        const p = Math.min(1, (t - t0) / dur);
-        const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = fmt(Math.round(target * eased));
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-      counterIO.unobserve(el);
-    });
-  }, { threshold: 0.5 });
-  counters.forEach(el => counterIO.observe(el));
-
-  /* ---------- Magnetic buttons (subtle) ---------- */
-  $$('[data-magnetic]').forEach((el) => {
-    el.addEventListener('mousemove', (e) => {
-      const r = el.getBoundingClientRect();
-      const x = e.clientX - (r.left + r.width / 2);
-      const y = e.clientY - (r.top + r.height / 2);
-      el.style.transform = `translate(${x * 0.14}px, ${y * 0.18}px)`;
-    });
-    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
-  });
-
-  /* ---------- Testimonial slider ---------- */
-  const deck = $('#quoteDeck');
-  if (deck) {
-    const quotes = $$('.quote', deck);
-    const dots = $('#quoteDots');
-    const prev = $('#quotePrev');
-    const next = $('#quoteNext');
-    let idx = 0;
-    let auto;
-
-    dots.innerHTML = quotes.map((_, i) =>
-      `<button aria-label="Go to testimonial ${i+1}" class="${i === idx ? 'is-active' : ''}" data-i="${i}"></button>`
-    ).join('');
-
-    const go = (n) => {
-      idx = (n + quotes.length) % quotes.length;
-      quotes.forEach((q, i) => q.classList.toggle('is-active', i === idx));
-      $$('button', dots).forEach((d, i) => d.classList.toggle('is-active', i === idx));
-    };
-
-    dots.addEventListener('click', (e) => {
-      const b = e.target.closest('button[data-i]');
-      if (!b) return;
-      go(parseInt(b.dataset.i, 10));
-      restart();
-    });
-    prev?.addEventListener('click', () => { go(idx - 1); restart(); });
-    next?.addEventListener('click', () => { go(idx + 1); restart(); });
-
-    const start = () => { auto = setInterval(() => go(idx + 1), 7500); };
-    const restart = () => { clearInterval(auto); start(); };
-    start();
-
-    const deckIO = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) start();
-        else clearInterval(auto);
-      });
-    }, { threshold: 0.2 });
-    deckIO.observe(deck);
-  }
-
-  /* ---------- Parallax (background image translate on scroll) ---------- */
-  const parallaxNodes = $$('[data-parallax-y]');
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (parallaxNodes.length && !reduceMotion) {
-    let ticking = false;
-    const update = () => {
-      const vh = window.innerHeight;
-      parallaxNodes.forEach((el) => {
-        const parent = el.parentElement;
-        const r = parent.getBoundingClientRect();
-        if (r.bottom < -200 || r.top > vh + 200) return;
-        const speed = parseFloat(el.dataset.parallaxY) || 0.15;
-        const center = (r.top + r.height / 2) - vh / 2;
-        const offset = center * -speed;
-        el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
-      });
-      ticking = false;
-    };
-    const onParallax = () => {
-      if (!ticking) { requestAnimationFrame(update); ticking = true; }
-    };
-    window.addEventListener('scroll', onParallax, { passive: true });
-    window.addEventListener('resize', onParallax);
-    update();
-  }
-
-  /* ---------- Smooth anchor (offset for sticky header) ---------- */
-  $$('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', (e) => {
-      const href = a.getAttribute('href');
-      if (href.length > 1) {
-        const t = $(href);
-        if (t) {
-          e.preventDefault();
-          const top = t.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({ top, behavior: 'smooth' });
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
         }
-      }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+    revealItems.forEach(function(el) {
+      revealObserver.observe(el);
     });
+  } else {
+    revealItems.forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+
+  /* ---------- GSAP Animations ---------- */
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero
+    gsap.from('.hero-title', { opacity: 0, y: 60, duration: 1.2, delay: 0.4, ease: 'power3.out' });
+    gsap.from('.hero-tagline', { opacity: 0, y: 40, duration: 1, delay: 0.7, ease: 'power3.out' });
+    gsap.from('.hero-cta', { opacity: 0, y: 30, duration: 1, delay: 1, ease: 'power3.out' });
+
+    // About
+    gsap.from('.about-content', {
+      scrollTrigger: { trigger: '.about', start: 'top 80%' },
+      opacity: 0, x: -60, duration: 1, ease: 'power3.out'
+    });
+    gsap.from('.about-media', {
+      scrollTrigger: { trigger: '.about', start: 'top 80%' },
+      opacity: 0, x: 60, duration: 1, ease: 'power3.out'
+    });
+
+    // Treatment cards
+    gsap.from('.treatment-item', {
+      scrollTrigger: { trigger: '.treatment-grid', start: 'top 85%' },
+      opacity: 0, y: 50, duration: 0.8, stagger: 0.1, ease: 'power3.out'
+    });
+
+    // Space
+    gsap.from('.space-content', {
+      scrollTrigger: { trigger: '.space', start: 'top 75%' },
+      opacity: 0, x: 60, duration: 1, ease: 'power3.out'
+    });
+
+    // Concerns
+    gsap.from('.concern-item', {
+      scrollTrigger: { trigger: '.concerns-grid', start: 'top 85%' },
+      opacity: 0, y: 40, duration: 0.6, stagger: 0.1, ease: 'power3.out'
+    });
+
+    // Programs
+    gsap.from('.programs-left', {
+      scrollTrigger: { trigger: '.programs', start: 'top 75%' },
+      opacity: 0, x: -60, duration: 1, ease: 'power3.out'
+    });
+    gsap.from('.programs-right', {
+      scrollTrigger: { trigger: '.programs', start: 'top 75%' },
+      opacity: 0, x: 60, duration: 1, ease: 'power3.out'
+    });
+
+    // Founders
+    gsap.from('.founders-image', {
+      scrollTrigger: { trigger: '.founders', start: 'top 75%' },
+      opacity: 0, x: -60, duration: 1, ease: 'power3.out'
+    });
+    gsap.from('.founders-content', {
+      scrollTrigger: { trigger: '.founders', start: 'top 75%' },
+      opacity: 0, x: 60, duration: 1, ease: 'power3.out'
+    });
+
+    // Journal
+    gsap.from('.journal-item', {
+      scrollTrigger: { trigger: '.journal-grid', start: 'top 85%' },
+      opacity: 0, y: 50, duration: 0.8, stagger: 0.12, ease: 'power3.out'
+    });
+
+    // Book
+    gsap.from('.book-left', {
+      scrollTrigger: { trigger: '.book', start: 'top 75%' },
+      opacity: 0, x: -60, duration: 1, ease: 'power3.out'
+    });
+    gsap.from('.book-right', {
+      scrollTrigger: { trigger: '.book', start: 'top 75%' },
+      opacity: 0, x: 60, duration: 1, ease: 'power3.out'
+    });
+
+    // Refresh ScrollTrigger on resize
+    window.addEventListener('resize', function() {
+      ScrollTrigger.refresh();
+    });
+  }
+
+  /* ---------- Hover Effects on Cards ---------- */
+  $$('.treatment-item, .journal-item').forEach(function(card) {
+    var img = card.querySelector('.treatment-img, .journal-img');
+
+    if (img) {
+      card.addEventListener('mouseenter', function() {
+        gsap.to(img, { scale: 1.04, duration: 0.6, ease: 'power2.out' });
+      });
+      card.addEventListener('mouseleave', function() {
+        gsap.to(img, { scale: 1, duration: 0.4, ease: 'power2.out' });
+      });
+    }
   });
+
+  /* ---------- About Us Accordion ---------- */
+  $$('.about-accordion').forEach(function(accordion) {
+    var header = accordion.querySelector('.accordion-header');
+    var content = accordion.querySelector('.accordion-content');
+
+    if (header && content) {
+      header.addEventListener('click', function() {
+        var isOpen = accordion.classList.contains('is-open');
+
+        // Close all accordions
+        $$('.about-accordion').forEach(function(acc) {
+          acc.classList.remove('is-open');
+          var c = acc.querySelector('.accordion-content');
+          if (c) c.style.maxHeight = '0';
+        });
+
+        // Open clicked accordion if it was closed
+        if (!isOpen) {
+          accordion.classList.add('is-open');
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      });
+    }
+  });
+
+  /* ---------- About Us Section Animations ---------- */
+  gsap.from('.about-us-subtitle', {
+    scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
+    opacity: 0, y: 30, duration: 0.8, ease: 'power3.out'
+  });
+  gsap.from('.about-us-title', {
+    scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
+    opacity: 0, y: 40, duration: 1, delay: 0.15, ease: 'power3.out'
+  });
+  gsap.from('.about-us-intro', {
+    scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
+    opacity: 0, y: 30, duration: 0.8, delay: 0.3, ease: 'power3.out'
+  });
+  gsap.from('.about-us-divider', {
+    scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
+    opacity: 0, scaleX: 0, duration: 0.8, delay: 0.4, ease: 'power3.out'
+  });
+  gsap.from('.about-paragraph', {
+    scrollTrigger: { trigger: '.about-left-column', start: 'top 85%' },
+    opacity: 0, y: 30, duration: 0.8, ease: 'power3.out'
+  });
+  gsap.from('.about-accordion', {
+    scrollTrigger: { trigger: '.about-accordions', start: 'top 85%' },
+    opacity: 0, y: 40, duration: 0.6, stagger: 0.15, ease: 'power3.out'
+  });
+  gsap.from('.about-image-container', {
+    scrollTrigger: { trigger: '.about-image-container', start: 'top 85%' },
+    opacity: 0, scale: 0.9, duration: 1, ease: 'power3.out'
+  });
+  gsap.from('.about-watermark', {
+    scrollTrigger: { trigger: '.about-wave', start: 'top 90%' },
+    opacity: 0, duration: 1.2, ease: 'power2.out'
+  });
+
+  /* ---------- Treatments Slider ---------- */
+  var treatmentsTrack = document.querySelector('.treatments-track');
+  var treatPrevBtn = document.querySelector('.treatments-nav .prev-btn');
+  var treatNextBtn = document.querySelector('.treatments-nav .next-btn');
+
+  if (treatmentsTrack && treatPrevBtn && treatNextBtn) {
+    treatPrevBtn.addEventListener('click', function() {
+      var cardWidth = treatmentsTrack.querySelector('.treatment-card').getBoundingClientRect().width;
+      var gap = parseFloat(getComputedStyle(treatmentsTrack).gap) || 0;
+      treatmentsTrack.scrollBy({
+        left: -(cardWidth + gap),
+        behavior: 'smooth'
+      });
+    });
+
+    treatNextBtn.addEventListener('click', function() {
+      var cardWidth = treatmentsTrack.querySelector('.treatment-card').getBoundingClientRect().width;
+      var gap = parseFloat(getComputedStyle(treatmentsTrack).gap) || 0;
+      treatmentsTrack.scrollBy({
+        left: (cardWidth + gap),
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  /* ---------- Testimonials Slider ---------- */
+  var testimonialsTrack = document.querySelector('.testimonials-track');
+  var testPrevBtn = document.querySelector('.testimonials-slider .prev-btn');
+  var testNextBtn = document.querySelector('.testimonials-slider .next-btn');
+
+  if (testimonialsTrack && testPrevBtn && testNextBtn) {
+    var scrollAmount = testimonialsTrack.offsetWidth / 3;
+
+    testPrevBtn.addEventListener('click', function() {
+      testimonialsTrack.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth'
+      });
+    });
+
+    testNextBtn.addEventListener('click', function() {
+      testimonialsTrack.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    });
+  }
 
 })();

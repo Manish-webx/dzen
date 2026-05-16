@@ -462,7 +462,7 @@ h3,
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(75, 43, 32, 0.3) 0%, rgba(42, 42, 42, 0.5) 100%);
+  background: linear-gradient(180deg, rgba(75, 43, 32, 0.1) 0%, rgba(42, 42, 42, 0.1) 100%);
 }
 
 .hero-content {
@@ -4210,7 +4210,7 @@ h3,
    ========================================================= */
 
 .headlines-section {
-  padding: 67px 0 56px;
+  padding: 40px 0 56px;
   background: #FAF6F1;
 }
 

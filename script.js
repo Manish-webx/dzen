@@ -274,23 +274,41 @@
   var treatNextBtn = document.querySelector('.treatments-nav .next-btn');
 
   if (treatmentsTrack && treatPrevBtn && treatNextBtn) {
+    function updateNavButtons() {
+      var scrollLeft = treatmentsTrack.scrollLeft;
+      var maxScroll = treatmentsTrack.scrollWidth - treatmentsTrack.clientWidth;
+      treatPrevBtn.disabled = scrollLeft <= 5;
+      treatNextBtn.disabled = scrollLeft >= maxScroll - 5;
+    }
+
     treatPrevBtn.addEventListener('click', function() {
-      var cardWidth = treatmentsTrack.querySelector('.treatment-card').getBoundingClientRect().width;
-      var gap = parseFloat(getComputedStyle(treatmentsTrack).gap) || 0;
-      treatmentsTrack.scrollBy({
-        left: -(cardWidth + gap),
-        behavior: 'smooth'
-      });
+      var card = treatmentsTrack.querySelector('.treatment-card');
+      if (card) {
+        var cardWidth = card.getBoundingClientRect().width;
+        var gap = parseFloat(getComputedStyle(treatmentsTrack).gap) || 24;
+        treatmentsTrack.scrollBy({
+          left: -(cardWidth + gap) * 2,
+          behavior: 'smooth'
+        });
+      }
     });
 
     treatNextBtn.addEventListener('click', function() {
-      var cardWidth = treatmentsTrack.querySelector('.treatment-card').getBoundingClientRect().width;
-      var gap = parseFloat(getComputedStyle(treatmentsTrack).gap) || 0;
-      treatmentsTrack.scrollBy({
-        left: (cardWidth + gap),
-        behavior: 'smooth'
-      });
+      var card = treatmentsTrack.querySelector('.treatment-card');
+      if (card) {
+        var cardWidth = card.getBoundingClientRect().width;
+        var gap = parseFloat(getComputedStyle(treatmentsTrack).gap) || 24;
+        treatmentsTrack.scrollBy({
+          left: (cardWidth + gap) * 2,
+          behavior: 'smooth'
+        });
+      }
     });
+
+    treatmentsTrack.addEventListener('scroll', updateNavButtons);
+    window.addEventListener('resize', updateNavButtons);
+
+    updateNavButtons();
   }
 
   /* ---------- Testimonials Slider ---------- */

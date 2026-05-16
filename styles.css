@@ -1545,18 +1545,20 @@ h3,
 .treatments-slider-wrapper {
   position: relative;
   z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
 }
 
 .treatments-track {
   display: flex;
-  gap: 40px;
-  padding: 0 40px;
+  gap: 24px;
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-  scroll-padding-left: 40px;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  padding-bottom: 10px;
 }
 
 .treatments-track::-webkit-scrollbar {
@@ -1564,17 +1566,31 @@ h3,
 }
 
 .treatment-card {
-  flex: 0 0 300px;
+  flex: 0 0 280px;
   position: relative;
-  border-radius: 16px 80px 16px 16px;
+  border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
   scroll-snap-align: start;
 }
 
 .treatment-card-image {
+  position: relative;
   aspect-ratio: 3/4;
   overflow: hidden;
+}
+
+.treatment-card-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+
+.treatment-card:hover .treatment-card-image::before {
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .treatment-card-image img {
@@ -1594,7 +1610,7 @@ h3,
   left: 0;
   right: 0;
   padding: 30px 24px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.1) 100%);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1602,7 +1618,7 @@ h3,
 
 .treatment-card-title {
   font-family: var(--serif);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
   color: white;
 }
@@ -1621,31 +1637,115 @@ h3,
   transform: translateY(0);
 }
 
-@media (max-width: 991.98px) {
-  .treatments-section {
-    padding: 20px 0 50px;
-  }
+.treatments-nav {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 50px;
+}
 
-  .treatments-header {
-    flex-direction: column;
-    gap: 30px;
-    padding: 0 24px;
-  }
+.treatments-nav-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--copper-brown);
+}
 
-  .treatments-track {
-    padding: 0 24px;
-    gap: 24px;
-    scroll-padding-left: 24px;
+.treatments-nav-btn:hover {
+  background: var(--warm-gold);
+  border-color: var(--warm-gold);
+  color: white;
+}
+
+.treatments-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.treatments-nav-btn:disabled:hover {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--copper-brown);
+}
+
+.treatments-nav-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 1199.98px) {
+  .treatments-slider-wrapper {
+    padding: 0 30px;
   }
 
   .treatment-card {
     flex: 0 0 260px;
   }
+
+  .treatment-card-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .treatments-section {
+    padding: 20px 0 50px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .treatments-slider-wrapper {
+    padding: 0 20px;
+  }
+
+  .treatment-card {
+    flex: 0 0 240px;
+  }
+
+  .treatment-card-title {
+    font-size: 18px;
+  }
+
+  .treatment-card-overlay {
+    padding: 24px 16px;
+  }
 }
 
 @media (max-width: 575.98px) {
+  .treatments-slider-wrapper {
+    padding: 0 16px;
+  }
+
+  .treatments-track {
+    gap: 16px;
+  }
+
   .treatment-card {
-    flex: 0 0 240px;
+    flex: 0 0 calc(100vw - 80px);
+    max-width: 320px;
+  }
+
+  .treatment-card-image {
+    aspect-ratio: 4/3;
+  }
+
+  .treatment-card-title {
+    font-size: 20px;
+  }
+
+  .treatment-card-overlay {
+    padding: 24px 20px;
+  }
+
+  .treatments-nav {
+    margin-top: 40px;
   }
 
   .treatments-nav-btn {

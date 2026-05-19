@@ -312,7 +312,7 @@ p {
 }
 
 .header.transparent .nav a:hover {
-  color: var(--off-white);
+  color: #000;
 }
 
 .header.transparent .btn--primary {
@@ -540,7 +540,7 @@ p {
 .hero__video-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(250, 247, 243, 0.9) 0%, rgba(250, 247, 243, 0.8) 100%);
+  background: linear-gradient(135deg, rgba(250, 247, 243, 0.6) 0%, rgba(250, 247, 243, 0.8) 100%);
 }
 
 .hero__content {

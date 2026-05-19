@@ -420,6 +420,10 @@ h3,
   color: #fff;
 }
 
+.header.transparent .header-logo img {
+  filter: brightness(0) invert(1);
+}
+
 .header.transparent .dropdown-trigger a.dropdown-item {
   color: black !important;
 }

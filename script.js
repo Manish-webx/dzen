@@ -9,7 +9,7 @@
   var $$ = document.querySelectorAll.bind(document);
 
   /* ---------- Header & Scroll Vars ---------- */
-  var header = $('.site-header');
+  var header = document.getElementById('header') || document.querySelector('.header');
   var lastScroll = 0;
 
   /* ---------- Native Scroll Logic ---------- */
@@ -50,8 +50,8 @@
   });
 
   /* ---------- Mobile Menu ---------- */
-  var menuToggle = $('#menuToggle');
-  var mobileMenu = $('#mobileMenu');
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
 
   if (menuToggle && mobileMenu) {
     menuToggle.addEventListener('click', function() {

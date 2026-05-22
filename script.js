@@ -268,6 +268,101 @@
     opacity: 0, duration: 1.2, ease: 'power2.out'
   });
 
+  /* ---------- Drag to Scroll Functionality ---------- */
+  function makeDraggable(slider) {
+    if (!slider) return;
+    var isDown = false;
+    var isDragging = false;
+    var startX;
+    var scrollLeft;
+
+    var originalScrollBehavior;
+    var originalScrollSnap;
+
+    // Prevent default drag behavior on images to allow our custom drag
+    slider.querySelectorAll('img').forEach(function(img) {
+      img.addEventListener('dragstart', function(e) { e.preventDefault(); });
+    });
+
+    function disableSnapAndSmooth() {
+      originalScrollBehavior = getComputedStyle(slider).scrollBehavior;
+      originalScrollSnap = getComputedStyle(slider).scrollSnapType;
+      slider.style.scrollBehavior = 'auto';
+      slider.style.scrollSnapType = 'none';
+    }
+
+    function enableSnapAndSmooth() {
+      slider.style.scrollBehavior = originalScrollBehavior || '';
+      slider.style.scrollSnapType = originalScrollSnap || '';
+      // Also remove inline styles if they are empty
+      if (slider.style.scrollBehavior === '') slider.style.removeProperty('scroll-behavior');
+      if (slider.style.scrollSnapType === '') slider.style.removeProperty('scroll-snap-type');
+    }
+
+    slider.addEventListener('mousedown', function(e) {
+      isDown = true;
+      isDragging = false;
+      slider.style.cursor = 'grabbing';
+      disableSnapAndSmooth();
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', function() {
+      if (!isDown) return;
+      isDown = false;
+      slider.style.cursor = '';
+      enableSnapAndSmooth();
+    });
+    slider.addEventListener('mouseup', function() {
+      if (!isDown) return;
+      isDown = false;
+      slider.style.cursor = '';
+      enableSnapAndSmooth();
+      // Delay resetting isDragging so the click event is caught
+      setTimeout(function() { isDragging = false; }, 50);
+    });
+    slider.addEventListener('mousemove', function(e) {
+      if (!isDown) return;
+      e.preventDefault();
+      var x = e.pageX - slider.offsetLeft;
+      var walk = (x - startX) * 1.5;
+      if (Math.abs(walk) > 5) {
+        isDragging = true;
+      }
+      slider.scrollLeft = scrollLeft - walk;
+    });
+
+    slider.addEventListener('touchstart', function(e) {
+      isDown = true;
+      isDragging = false;
+      disableSnapAndSmooth();
+      startX = e.touches[0].pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    }, {passive: true});
+    slider.addEventListener('touchend', function() {
+      if (!isDown) return;
+      isDown = false;
+      enableSnapAndSmooth();
+      setTimeout(function() { isDragging = false; }, 50);
+    });
+    slider.addEventListener('touchmove', function(e) {
+      if (!isDown) return;
+      var x = e.touches[0].pageX - slider.offsetLeft;
+      var walk = (x - startX) * 1.5;
+      if (Math.abs(walk) > 5) {
+        isDragging = true;
+      }
+      slider.scrollLeft = scrollLeft - walk;
+    }, {passive: true});
+
+    slider.addEventListener('click', function(e) {
+      if (isDragging) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+  }
+
   /* ---------- Treatments Slider ---------- */
   var treatmentsTrack = document.querySelector('.treatments-track');
   var treatPrevBtn = document.querySelector('.treatments-nav .prev-btn');
@@ -309,6 +404,7 @@
     window.addEventListener('resize', updateNavButtons);
 
     updateNavButtons();
+    makeDraggable(treatmentsTrack);
   }
 
   /* ---------- Testimonials Slider ---------- */
@@ -331,6 +427,118 @@
         left: scrollAmount,
         behavior: 'smooth'
       });
+    });
+    makeDraggable(testimonialsTrack);
+  }
+
+  /* ---------- Philosophy Wheel Interaction ---------- */
+  var wheelNodes = document.querySelectorAll('.wheel-node');
+  var philosophyPanes = document.querySelectorAll('.philosophy-pane');
+
+  if (wheelNodes.length > 0 && philosophyPanes.length > 0) {
+    function activateNode(nodeId) {
+      // Deactivate all nodes and panes
+      wheelNodes.forEach(function(n) {
+        n.classList.remove('active');
+      });
+      philosophyPanes.forEach(function(p) {
+        p.classList.remove('active');
+      });
+
+      // Activate target node and pane
+      var targetNode = document.querySelector('.wheel-node[data-node="' + nodeId + '"]');
+      var targetPane = document.getElementById('pane-' + nodeId);
+
+      if (targetNode) targetNode.classList.add('active');
+      if (targetPane) targetPane.classList.add('active');
+    }
+
+    wheelNodes.forEach(function(node) {
+      node.addEventListener('mouseenter', function() {
+        var nodeId = this.getAttribute('data-node');
+        activateNode(nodeId);
+      });
+      
+      node.addEventListener('click', function() {
+        var nodeId = this.getAttribute('data-node');
+        activateNode(nodeId);
+      });
+    });
+  }
+
+  /* ---------- Signature Editorial Accordion ---------- */
+  var sigItems = document.querySelectorAll('.sig-accordion-item');
+  var sigImages = document.querySelectorAll('.sig-showcase-img');
+
+  if (sigItems.length > 0 && sigImages.length > 0) {
+    sigItems.forEach(function(item) {
+      item.addEventListener('mouseenter', function() {
+        // Remove active class from all items and images
+        sigItems.forEach(function(i) { i.classList.remove('active'); });
+        sigImages.forEach(function(img) { img.classList.remove('active'); });
+
+        // Add active class to hovered item
+        this.classList.add('active');
+        
+        // Find corresponding image and activate it
+        var targetId = this.getAttribute('data-sig-target');
+        var targetImg = document.querySelector('.sig-showcase-img[data-sig-img="' + targetId + '"]');
+        if (targetImg) {
+          targetImg.classList.add('active');
+        }
+      });
+    });
+  }
+
+  /* ---------- Press Collage & Lightbox ---------- */
+  var pressTiles = $$('.press-tile');
+  var lightbox = document.getElementById('pressLightbox');
+  var lightboxImg = document.getElementById('pressLightboxImg');
+  var lightboxCaption = document.getElementById('pressLightboxCaption');
+  var lightboxClose = document.getElementById('pressLightboxClose');
+
+  if (pressTiles.length > 0 && lightbox && lightboxImg && lightboxCaption) {
+    pressTiles.forEach(function(tile) {
+      tile.addEventListener('click', function() {
+        var imgEl = this.querySelector('img');
+        if (!imgEl) return;
+        var imgSrc = imgEl.getAttribute('src');
+        var captionText = this.getAttribute('data-caption') || '';
+        
+        lightboxImg.setAttribute('src', imgSrc);
+        lightboxImg.setAttribute('alt', imgEl.getAttribute('alt') || '');
+        lightboxCaption.textContent = captionText;
+        
+        lightbox.setAttribute('aria-hidden', 'false');
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    var closeLightbox = function() {
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      setTimeout(function() {
+        lightboxImg.setAttribute('src', '');
+        lightboxCaption.textContent = '';
+      }, 300);
+    };
+
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox || e.target.classList.contains('press-lightbox-content')) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        closeLightbox();
+      }
     });
   }
 

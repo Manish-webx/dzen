@@ -4644,7 +4644,7 @@ p {
   }
 }
 
-/* â”€â”€ Very small phones (â‰¤380px) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* — Very small phones (≤380px) ——————————————————————————————————— */
 @media (max-width: 380px) {
   .header__inner {
     padding: 0 14px;
@@ -4859,4 +4859,111 @@ iframe {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* =========================================================
+   PRESS COVERAGE - Toggle View & Lightbox Additions
+   ========================================================= */
+
+
+
+/* --- Lightbox Modal --- */
+.press-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 20, 16, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: var(--s-5);
+}
+
+.press-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.press-lightbox-content {
+  max-width: 90%;
+  max-height: 75vh;
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius-lg, 8px);
+  overflow: hidden;
+  border: 1px solid rgba(217, 164, 65, 0.2);
+}
+
+.press-lightbox.active .press-lightbox-content {
+  transform: scale(1);
+}
+
+.press-lightbox-img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+}
+
+.press-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  color: var(--off-white);
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10000;
+  transition: transform 0.3s;
+}
+
+.press-lightbox-close:hover {
+  transform: scale(1.1) rotate(90deg);
+}
+
+.press-lightbox-close svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
+}
+
+.press-lightbox-caption {
+  margin-top: var(--s-5);
+  color: var(--off-white);
+  font-family: var(--serif);
+  font-size: 16px;
+  text-align: center;
+  max-width: 600px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.5s ease 0.2s;
+  line-height: 1.6;
+}
+
+.press-lightbox.active .press-lightbox-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .press-lightbox-close {
+    top: 16px;
+    right: 16px;
+  }
+  
+  .press-lightbox-caption {
+    font-size: 14px;
+    padding: 0 var(--s-4);
+  }
 }

@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Our Philosophy — D'Zen Derma</title>
+  <meta name="description" content="Discover the D'Zen Derma philosophy: where science meets mindful wellness." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ==========================================================================
+       PREMIUM EDITORIAL DESIGN - PHILOSOPHY PAGE
+       ========================================================================== */
+    
+    body {
+      background-color: var(--off-white);
+    }
+
+    /* --- Parallax Hero --- */
+    .phi-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--brand-gradient);
+    }
+
+    .phi-hero-bg {
+      position: absolute;
+      top: -10%;
+      left: 0;
+      width: 100%;
+      height: 120%;
+      z-index: 1;
+    }
+
+    .phi-hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+    }
+
+    .phi-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(75, 43, 32, 0.2) 0%, rgba(42, 42, 42, 0.2) 100%);
+      z-index: 2;
+    }
+
+    .phi-hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      color: #fff;
+      padding: 0 5%;
+      width: 100%;
+    }
+
+    .phi-hero-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      display: block;
+      color: var(--warm-gold);
+    }
+
+    .phi-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(50px, 8vw, 100px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 30px;
+      letter-spacing: -1px;
+    }
+
+    .phi-hero-title i {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--cream);
+    }
+
+    .phi-hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.6);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .phi-scroll-line {
+      width: 1px;
+      height: 60px;
+      background: rgba(255,255,255,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phi-scroll-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 30%;
+      background: var(--warm-gold);
+      animation: phiScrollDown 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    }
+
+    @keyframes phiScrollDown {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(350%); }
+    }
+
+    /* --- Brand Manifesto --- */
+    .phi-manifesto {
+      padding: 150px 0;
+      background: var(--off-white);
+      position: relative;
+    }
+
+    .phi-manifesto-text {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.4;
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+      color: var(--charcoal);
+      font-weight: 400;
+    }
+
+    .phi-manifesto-text span {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+    }
+
+    .phi-manifesto-text span > span {
+      display: inline-block;
+      transform: translateY(100%);
+    }
+
+    .phi-manifesto-mark {
+      font-size: 120px;
+      line-height: 1;
+      font-family: var(--serif);
+      color: var(--warm-gold);
+      opacity: 0.2;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* --- The Four Balances (Sticky Layout) --- */
+    .phi-balances {
+      background: var(--cream);
+      position: relative;
+      padding: 100px 0;
+    }
+
+    .phi-sticky-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .phi-sticky-left {
+      width: 50%;
+      position: relative;
+    }
+
+    .phi-sticky-right {
+      width: 50%;
+      padding-left: 8%;
+    }
+
+    @media (max-width: 991px) {
+      .phi-sticky-left, .phi-sticky-right { width: 100%; padding: 0; }
+      .phi-sticky-left { height: 60vh; margin-bottom: 60px; }
+    }
+
+    .phi-sticky-wrapper {
+      position: sticky;
+      top: 15vh;
+      height: 70vh;
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .phi-sticky-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.8s ease, transform 1.5s ease;
+      transform: scale(1.05);
+    }
+
+    .phi-sticky-img.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .phi-balance-block {
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0.3;
+      transition: opacity 0.6s ease;
+    }
+
+    .phi-balance-block.active {
+      opacity: 1;
+    }
+
+    .phi-balance-num {
+      font-family: var(--serif);
+      font-size: 80px;
+      color: var(--warm-gold);
+      line-height: 1;
+      margin-bottom: 20px;
+      opacity: 0.4;
+    }
+
+    .phi-balance-title {
+      font-family: var(--serif);
+      font-size: 40px;
+      margin-bottom: 24px;
+      color: var(--deep-brown);
+    }
+
+    .phi-balance-desc {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      max-width: 400px;
+    }
+
+    /* --- Editorial Layout Sections --- */
+    .phi-editorial {
+      padding: 150px 0;
+      background: var(--off-white);
+      overflow: hidden;
+    }
+
+    .phi-ed-grid {
+      display: grid;
+      grid-template-columns: 5fr 6fr;
+      gap: 8%;
+      align-items: center;
+    }
+
+    .phi-ed-grid.reverse {
+      grid-template-columns: 6fr 5fr;
+    }
+
+    @media (max-width: 991px) {
+      .phi-ed-grid, .phi-ed-grid.reverse {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+      .phi-ed-grid.reverse .phi-ed-img-wrap {
+        order: -1;
+      }
+    }
+
+    .phi-ed-img-wrap {
+      position: relative;
+    }
+
+    .phi-ed-img-inner {
+      overflow: hidden;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .phi-ed-img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transform: scale(1.1);
+      transform-origin: center;
+    }
+
+    .phi-ed-watermark {
+      position: absolute;
+      top: -40px;
+      left: -40px;
+      font-family: var(--serif);
+      font-size: 160px;
+      line-height: 1;
+      color: var(--warm-gold);
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    .phi-ed-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .phi-ed-subtitle {
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--warm-gold);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .phi-ed-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4vw, 56px);
+      line-height: 1.2;
+      margin-bottom: 32px;
+      color: var(--deep-brown);
+    }
+
+    .phi-ed-text {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .phi-decor-line {
+      width: 1px;
+      height: 100px;
+      background: var(--border);
+      margin: 60px auto;
+    }
+
+    /* --- The Journey (Vertical Timeline) --- */
+    .phi-journey {
+      padding: 150px 0;
+      background: var(--off-white);
+      color: var(--charcoal);
+      position: relative;
+    }
+    
+    .phi-journey::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%; height: 100%;
+      background: url('https://images.unsplash.com/photo-1618525048296-e260fb5bcdd0?w=1200&q=80') no-repeat right center/cover;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    .phi-journey-header {
+      text-align: center;
+      margin-bottom: 100px;
+    }
+
+    .phi-journey-header .section-subtitle {
+      color: var(--warm-gold);
+    }
+    
+    .phi-journey-header .section-title {
+      color: var(--deep-brown);
+    }
+
+    .phi-timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-left: 40px;
+    }
+
+    .phi-timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 100%;
+      background: var(--border);
+    }
+
+    .phi-timeline-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 0;
+      background: var(--warm-gold);
+      box-shadow: 0 0 10px var(--warm-gold);
+    }
+
+    .phi-step {
+      position: relative;
+      padding-bottom: 80px;
+      padding-left: 40px;
+    }
+
+    .phi-step:last-child {
+      padding-bottom: 0;
+    }
+
+    .phi-step-dot {
+      position: absolute;
+      top: 10px;
+      left: -4px;
+      width: 9px;
+      height: 9px;
+      background: var(--off-white);
+      border: 1px solid var(--warm-gold);
+      border-radius: 50%;
+      z-index: 2;
+      transition: all 0.5s ease;
+    }
+
+    .phi-step.active .phi-step-dot {
+      background: var(--warm-gold);
+      box-shadow: 0 0 15px rgba(218, 165, 32, 0.8);
+      transform: scale(1.5);
+    }
+
+    .phi-step-num {
+      font-family: var(--sans);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--warm-gold);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .phi-step-title {
+      font-family: var(--serif);
+      font-size: 32px;
+      color: var(--deep-brown);
+      margin-bottom: 20px;
+    }
+
+    .phi-step-desc {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header transparent" id="header" style="position: fixed;">
+    <div class="header-inner">
+      <nav class="header-nav header-nav--left">
+        <div class="header-dropdown">
+          <button class="dropdown-trigger" type="button">Core Pillars</button>
+          <div class="dropdown-menu dropdown-menu--horizontal">
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Aesthetics</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Functional Medicine</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Integrative Programmes</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Regenerative Aesthetics</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Fellow Doctors Training</a>
+          </div>
+        </div>
+
+        <div class="header-dropdown">
+          <button class="dropdown-trigger" type="button">Concern</button>
+          <div class="dropdown-menu dropdown-menu--horizontal">
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Face</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Body</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Ageing</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Hair</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Wellness</a>
+            <a href="#" class="view-more" style="color:#4B2B20">View More →</a>
+          </div>
+        </div>
+
+        <div class="header-dropdown">
+          <button class="dropdown-trigger" type="button">Treatment</button>
+          <div class="dropdown-menu dropdown-menu--horizontal">
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Mesoterapy</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">Microneedling</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">MNRF</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">HIFU</a>
+            <a href="#" class="dropdown-item" style="color:#4B2B20">HydraFacial</a>
+            <a href="#" class="view-more" style="color:#4B2B20">View More →</a>
+          </div>
+        </div>
+      </nav>
+
+      <a class="header-logo" href="index.html">
+        <img src="logo1.png" alt="D'Zen Derma Logo">
+      </a>
+
+      <nav class="header-nav header-nav--right">
+        <a href="about.html">Who We Are</a>
+        <a href="signatures.html">D'ZEN EXPERIENCE</a>
+        <a href="journal.html">Journal</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileMenu">
+    <nav>
+      <a href="aesthetics.html">Pillars</a>
+      <a href="concerns.html">Concern</a>
+      <a href="treatments.html">Treatment</a>
+      <a href="about.html">Who We Are</a>
+      <a href="signatures.html">D'ZEN EXPERIENCE</a>
+      <a href="journal.html">Journal</a>
+    </nav>
+    <a href="#book" class="mobile-nav-cta">Book an Appointment</a>
+    <div class="mobile-nav-contact">
+      <span>+91 98765 43210</span>
+      <span>info@dzen-derma.com</span>
+    </div>
+  </div>
+
+  <main>
+    <!-- 1. Hero Section -->
+    <section class="phi-hero" id="phiHero">
+      <div class="phi-hero-bg" id="heroBg">
+        <img src="https://images.unsplash.com/photo-1611078516086-a5796f6006c7?w=1920&q=80" alt="Philosophy Hero">
+      </div>
+      <div class="phi-hero-overlay"></div>
+      
+      <div class="phi-hero-content">
+        <span class="phi-hero-label hero-anim">02 &mdash; Philosophy</span>
+        <h1 class="phi-hero-title hero-anim">Beauty is in <br><i>the Balance</i></h1>
+      </div>
+      
+      <div class="phi-hero-scroll">
+        <span>Scroll</span>
+        <div class="phi-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- 2. Brand Manifesto -->
+    <section class="phi-manifesto">
+      <div class="phi-manifesto-mark">"</div>
+      <div class="container">
+        <div class="phi-manifesto-text" id="manifestoText">
+          True beauty is an equilibrium between internal cellular health and external cutaneous expression. We look beyond quick fixes to nurture skin at its core.
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. The Four Balances (Sticky Left, Scroll Right) -->
+    <section class="phi-balances" id="balancesSection">
+      <div class="container">
+        <div class="section-header text-center mx-auto" style="max-width: 600px; margin-bottom: 80px;">
+          <span class="section-subtitle">CORE FOUNDATION</span>
+          <h2 class="section-title" style="color: var(--deep-brown);">The Four Balances</h2>
+        </div>
+        
+        <div class="phi-sticky-container">
+          <!-- Sticky Images -->
+          <div class="phi-sticky-left">
+            <div class="phi-sticky-wrapper">
+              <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80" alt="Science & Nature" class="phi-sticky-img active" data-img="0">
+              <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=80" alt="Internal & External" class="phi-sticky-img" data-img="1">
+              <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80" alt="Efficacy & Luxury" class="phi-sticky-img" data-img="2">
+              <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80" alt="Immediate & Lasting" class="phi-sticky-img" data-img="3">
+            </div>
+          </div>
+          
+          <!-- Scrolling Text -->
+          <div class="phi-sticky-right">
+            <div class="phi-balance-block active" data-block="0">
+              <div class="phi-balance-num">01</div>
+              <h3 class="phi-balance-title">Science &amp; Nature</h3>
+              <p class="phi-balance-desc">Harmonizing clinically proven dermatological advancements with the body's natural regenerative capabilities to yield pure, uncompromising results.</p>
+            </div>
+            <div class="phi-balance-block" data-block="1">
+              <div class="phi-balance-num">02</div>
+              <h3 class="phi-balance-title">Internal &amp; External</h3>
+              <p class="phi-balance-desc">Addressing root causes beneath the surface—from gut microbiome to hormonal equilibrium—while perfecting the outer canvas for comprehensive radiance.</p>
+            </div>
+            <div class="phi-balance-block" data-block="2">
+              <div class="phi-balance-num">03</div>
+              <h3 class="phi-balance-title">Efficacy &amp; Luxury</h3>
+              <p class="phi-balance-desc">Delivering medical-grade outcomes within a serene, unhurried sanctuary. We believe clinical efficacy shouldn't compromise on sensory indulgence.</p>
+            </div>
+            <div class="phi-balance-block" data-block="3">
+              <div class="phi-balance-num">04</div>
+              <h3 class="phi-balance-title">Immediate &amp; Lasting</h3>
+              <p class="phi-balance-desc">Designing meticulously tailored protocols that offer both visible instant refinement and profound, structural longevity for the years ahead.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Editorial: Inside-Out Elevation -->
+    <section class="phi-editorial">
+      <div class="container">
+        <div class="phi-ed-grid">
+          <div class="phi-ed-img-wrap">
+            <div class="phi-ed-watermark">I</div>
+            <div class="phi-ed-img-inner">
+              <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1000&q=80" alt="Inside-Out Elevation" class="phi-ed-img phi-img-anim">
+            </div>
+          </div>
+          <div class="phi-ed-content phi-text-anim">
+            <span class="phi-ed-subtitle">The Core Approach</span>
+            <h2 class="phi-ed-title">Why Inside-Out Elevation Matters</h2>
+            <p class="phi-ed-text">We believe that the skin is a mirror reflecting your internal health. Treating the surface without addressing underlying factors like systemic inflammation, gut microbiome imbalance, and hormonal shifts offers only temporary relief.</p>
+            <p class="phi-ed-text">Our philosophy prioritizes cellular health. By integrating functional medicine diagnostics with aesthetic procedures, we elevate your wellness from the inside out, ensuring your external radiance is a genuine reflection of internal vitality.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="phi-decor-line"></div>
+
+    <!-- 5. Editorial: Isolated Treatments -->
+    <section class="phi-editorial" style="padding-top: 50px;">
+      <div class="container">
+        <div class="phi-ed-grid reverse">
+          <div class="phi-ed-img-wrap">
+            <div class="phi-ed-watermark" style="left: auto; right: -40px;">II</div>
+            <div class="phi-ed-img-inner">
+              <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1000&q=80" alt="Holistic Treatment" class="phi-ed-img phi-img-anim">
+            </div>
+          </div>
+          <div class="phi-ed-content phi-text-anim">
+            <span class="phi-ed-subtitle">Evolving Care</span>
+            <h2 class="phi-ed-title">Why Isolated Treatments Are Outdated</h2>
+            <p class="phi-ed-text">The traditional approach to aesthetics often relies on isolated treatments—a laser here, a peel there—without a cohesive strategy. This fragmented methodology frequently leads to plateaued results and an artificial appearance.</p>
+            <p class="phi-ed-text">At D'Zen Derma, we have moved beyond the menu-driven approach. We design comprehensive, synergistic protocols where each therapy amplifies the next, providing subtle, intelligent preservation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. The Journey -->
+    <section class="phi-journey" id="journeySection">
+      <div class="container">
+        <div class="phi-journey-header">
+          <span class="section-subtitle">YOUR PATHWAY</span>
+          <h2 class="section-title">The D'Zen Integrated Journey</h2>
+        </div>
+
+        <div class="phi-timeline">
+          <div class="phi-timeline-progress" id="timelineProgress"></div>
+
+          <div class="phi-step">
+            <div class="phi-step-dot"></div>
+            <span class="phi-step-num">PHASE 01</span>
+            <h3 class="phi-step-title">Discovery &amp; Diagnostics</h3>
+            <p class="phi-step-desc">An unhurried consultation where we listen to your concerns, map your aesthetic goals, and perform advanced skin and functional diagnostics to understand your unique baseline.</p>
+          </div>
+
+          <div class="phi-step">
+            <div class="phi-step-dot"></div>
+            <span class="phi-step-num">PHASE 02</span>
+            <h3 class="phi-step-title">Bespoke Protocol Design</h3>
+            <p class="phi-step-desc">Based on our findings, we craft a personalized roadmap that synergizes regenerative treatments, medical aesthetics, and nutritional or functional interventions tailored exclusively for you.</p>
+          </div>
+
+          <div class="phi-step">
+            <div class="phi-step-dot"></div>
+            <span class="phi-step-num">PHASE 03</span>
+            <h3 class="phi-step-title">The Sanctuary Experience</h3>
+            <p class="phi-step-desc">Step into our luxury space where each treatment is delivered with clinical precision and profound care, turning medical procedures into restorative, deeply relaxing rituals.</p>
+          </div>
+
+          <div class="phi-step">
+            <div class="phi-step-dot"></div>
+            <span class="phi-step-num">PHASE 04</span>
+            <h3 class="phi-step-title">Continuous Evolution</h3>
+            <p class="phi-step-desc">Your biology is dynamic, and so is our care. We continually monitor your progress, adapting your protocol to ensure sustained results, structural integrity, and clinical longevity.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / Booking Section (Reused from index.html) -->
+    <section class="contact-section" id="book">
+      <div class="contact-fixed-bg" style="background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1600&q=80');"></div>
+      <div class="contact-overlay"></div>
+      <div class="container relative-content" style="position: relative; z-index: 2;">
+        <div class="contact-box reveal">
+          <div class="row g-0">
+            <div class="col-lg-5 contact-info-col">
+              <div class="contact-info-content">
+                <div class="contact-info-header">
+                  <span class="ci-subtitle">GET IN TOUCH</span>
+                  <h2 class="ci-title">Begin Your <em>Journey</em></h2>
+                  <p class="ci-desc">Step into a realm of balance and science-led aesthetic care. Reach out to schedule your personalized consultation.</p>
+                </div>
+                <div class="contact-details">
+                  <div class="contact-detail-item">
+                    <div class="cdi-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                      </svg>
+                    </div>
+                    <div class="cdi-text">
+                      <span class="detail-label">Phone</span>
+                      <a href="tel:+918800000000" class="detail-value">+91 88000 00000</a>
+                    </div>
+                  </div>
+                  <div class="contact-detail-item">
+                    <div class="cdi-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                      </svg>
+                    </div>
+                    <div class="cdi-text">
+                      <span class="detail-label">Email</span>
+                      <a href="mailto:hello@dzenderma.com" class="detail-value">hello@dzenderma.com</a>
+                    </div>
+                  </div>
+                  <div class="contact-detail-item">
+                    <div class="cdi-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                    </div>
+                    <div class="cdi-text">
+                      <span class="detail-label">Location</span>
+                      <span class="detail-value">Delhi · Gurgaon</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7 contact-form-col">
+              <div class="contact-form-content">
+                <div class="form-decor-corner"></div>
+                <h3 class="form-title">Request an Appointment</h3>
+                <div class="form-divider"></div>
+                <form class="booking-form">
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="fname">First Name</label>
+                        <input type="text" id="fname" class="form-control" placeholder="Jane" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="lname">Last Name</label>
+                        <input type="text" id="lname" class="form-control" placeholder="Doe" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="+91 00000 00000" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="service">Treatment of Interest</label>
+                        <select id="service" class="form-control form-select" required>
+                          <option value="" disabled selected>Select a treatment</option>
+                          <option value="hair">Hair Loss</option>
+                          <option value="skin">Skin Disorders</option>
+                          <option value="anti-aging">Anti-Aging / Radiance</option>
+                          <option value="other">Other / General Consultation</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="message">Message <span class="optional-label">(Optional)</span></label>
+                        <textarea id="message" class="form-control" rows="4" placeholder="Tell us about your concerns..."></textarea>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="submit-btn">
+                        <span>Book Appointment</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Premium Footer -->
+  <footer class="premium-footer">
+    <div class="footer-corner footer-corner-tl"></div>
+    <div class="footer-corner footer-corner-tr"></div>
+    <div class="footer-main">
+      <div class="footer-top-bar">
+        <div class="footer-top-line"></div>
+        <div class="footer-top-emblem">
+          <svg viewBox="0 0 60 60" fill="none">
+            <circle cx="30" cy="30" r="28" stroke="currentColor" stroke-width="0.5" />
+            <circle cx="30" cy="30" r="20" stroke="currentColor" stroke-width="0.5" />
+            <circle cx="30" cy="30" r="8" stroke="currentColor" stroke-width="0.5" />
+          </svg>
+        </div>
+        <div class="footer-top-line"></div>
+      </div>
+      <div class="container">
+        <div class="footer-content-grid">
+          <div class="footer-brand-col">
+            <div class="footer-logo-wrap">
+              <img src="logo1.png" alt="D'Zen Derma" class="footer-logo">
+            </div>
+            <div class="footer-brand-ornament"></div>
+            <p class="footer-brand-text">A sanctuary where science meets artistry, and beauty finds its true expression.</p>
+            <div class="footer-social-wrap">
+              <a href="#" class="footer-social" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+              <a href="#" class="footer-social" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="footer-nav-col">
+            <h5 class="footer-col-title">Explore</h5>
+            <div class="footer-nav-ornament"></div>
+            <ul class="footer-nav-list">
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="signatures.html">D'ZEN Experience</a></li>
+              <li><a href="treatments.html">All Treatments</a></li>
+              <li><a href="journal.html">Journal</a></li>
+              <li><a href="#book">Book Consultation</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <h5 class="footer-col-title">Treatments</h5>
+            <div class="footer-nav-ornament"></div>
+            <ul class="footer-nav-list">
+              <li><a href="#">Aesthetics</a></li>
+              <li><a href="#">Functional Medicine</a></li>
+              <li><a href="#">Regenerative Aesthetics</a></li>
+              <li><a href="#">Integrative Programmes</a></li>
+              <li><a href="#">Fellow Training</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact-col">
+            <h5 class="footer-col-title">Reach Us</h5>
+            <div class="footer-nav-ornament"></div>
+            <div class="footer-contact-list">
+              <div class="footer-contact-item">
+                <div class="contact-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <div class="contact-details">
+                  <span class="contact-label">Visit Us</span>
+                  <span class="contact-value">Delhi · Gurgaon, India</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div class="container">
+          <div class="footer-bottom-inner">
+            <div class="footer-bottom-left">
+              <p class="footer-copyright">&copy; 2026 D'Zen Derma. Crafted with precision.</p>
+            </div>
+            <div class="footer-bottom-center">
+              <div class="footer-logo-mini">
+                <img src="logo1.png" alt="D'Zen Derma">
+              </div>
+            </div>
+            <div class="footer-bottom-right">
+              <nav class="footer-legal-nav">
+                <a href="#">Privacy</a><span class="legal-separator">·</span>
+                <a href="#">Terms</a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <!-- Premium GSAP Animations for Philosophy Page -->
+  <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero Parallax & Fade
+      gsap.to("#heroBg", {
+        yPercent: 30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#phiHero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      gsap.from(".hero-anim", {
+        y: 50,
+        opacity: 0,
+        duration: 1.5,
+        stagger: 0.2,
+        ease: "power4.out",
+        delay: 0.2
+      });
+
+      // Manifesto Text Reveal
+      const manifestoText = document.getElementById('manifestoText');
+      if (manifestoText) {
+        // Simple word split for staggered animation
+        let words = manifestoText.innerText.split(' ');
+        manifestoText.innerHTML = '';
+        words.forEach(word => {
+          let wrapper = document.createElement('span');
+          let inner = document.createElement('span');
+          inner.innerText = word + '\u00A0';
+          wrapper.appendChild(inner);
+          manifestoText.appendChild(wrapper);
+        });
+
+        gsap.to(".phi-manifesto-text span > span", {
+          scrollTrigger: {
+            trigger: ".phi-manifesto",
+            start: "top 70%",
+          },
+          y: 0,
+          stagger: 0.02,
+          duration: 1,
+          ease: "power3.out"
+        });
+      }
+
+      // The Four Balances Sticky Scroll
+      const blocks = gsap.utils.toArray('.phi-balance-block');
+      const images = gsap.utils.toArray('.phi-sticky-img');
+
+      blocks.forEach((block, i) => {
+        ScrollTrigger.create({
+          trigger: block,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => activateBalance(i),
+          onEnterBack: () => activateBalance(i),
+        });
+      });
+
+      function activateBalance(index) {
+        blocks.forEach(b => b.classList.remove('active'));
+        images.forEach(img => img.classList.remove('active'));
+        
+        blocks[index].classList.add('active');
+        images[index].classList.add('active');
+      }
+
+      // Editorial Images Parallax
+      gsap.utils.toArray('.phi-img-anim').forEach(img => {
+        gsap.to(img, {
+          yPercent: 15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: img.parentElement,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      });
+
+      // Editorial Text Fade Up
+      gsap.utils.toArray('.phi-text-anim').forEach(text => {
+        gsap.from(text, {
+          scrollTrigger: {
+            trigger: text,
+            start: "top 85%"
+          },
+          y: 40,
+          opacity: 0,
+          duration: 1.2,
+          ease: "power3.out"
+        });
+      });
+
+      // The Journey Timeline Progress
+      const steps = gsap.utils.toArray('.phi-step');
+      
+      gsap.to("#timelineProgress", {
+        height: "100%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".phi-timeline",
+          start: "top center",
+          end: "bottom center",
+          scrub: true
+        }
+      });
+
+      steps.forEach((step, i) => {
+        ScrollTrigger.create({
+          trigger: step,
+          start: "top center+=100",
+          onEnter: () => step.classList.add('active'),
+          onLeaveBack: () => step.classList.remove('active')
+        });
+        
+        gsap.from(step, {
+          scrollTrigger: {
+            trigger: step,
+            start: "top 85%"
+          },
+          x: 30,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out"
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>

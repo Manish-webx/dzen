@@ -1895,6 +1895,47 @@ h3,
   overflow: hidden;
 }
 
+.treatments-pattern-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.treatments-pattern-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, var(--copper-brown) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 70% 50%, var(--copper-brown) 1px, transparent 1px),
+    radial-gradient(circle at 40% 80%, var(--copper-brown) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 80% 20%, var(--copper-brown) 1px, transparent 1px),
+    radial-gradient(circle at 10% 70%, var(--copper-brown) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, var(--copper-brown) 2px, transparent 2px),
+    radial-gradient(circle at 90% 80%, var(--copper-brown) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.06;
+}
+
+.treatments-pattern-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(45deg,
+      transparent,
+      transparent 20px,
+      rgba(139, 69, 19, 0.03) 20px,
+      rgba(139, 69, 19, 0.03) 21px),
+    repeating-linear-gradient(-45deg,
+      transparent,
+      transparent 20px,
+      rgba(139, 69, 19, 0.03) 20px,
+      rgba(139, 69, 19, 0.03) 21px);
+}
+
 .treatments-header {
   position: relative;
   z-index: 2;
@@ -1951,7 +1992,7 @@ h3,
 
 .treatments-track {
   display: flex;
-  gap: 32px;
+  gap: 3px;
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
@@ -1973,55 +2014,85 @@ h3,
 
 .treatment-card-inner {
   position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--off-white);
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.06),
-    0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 280px;
+  height: 320px;
+  margin: 0 auto;
 }
 
-.treatment-card:hover .treatment-card-inner {
-  transform: translateY(-8px);
-  box-shadow:
-    0 24px 48px rgba(0, 0, 0, 0.1),
-    0 8px 16px rgba(0, 0, 0, 0.06);
+.treatment-card-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--copper-brown);
+  opacity: 0.3;
+  animation: blob-morph 8s ease-in-out infinite alternate;
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+.treatment-card:hover .treatment-card-bg {
+  opacity: 0.6;
+  background: var(--copper-brown);
 }
 
 .treatment-card-image {
-  position: relative;
-  aspect-ratio: 3 / 4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   overflow: hidden;
-  background: var(--cream);
+  animation: blob-morph-alt 9s ease-in-out infinite alternate-reverse;
+  z-index: 2;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
+  transform: translateZ(0);
 }
 
 .treatment-card-image::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg,
-      rgba(26, 20, 16, 0.15) 0%,
-      rgba(26, 20, 16, 0.5) 100%);
-  z-index: 2;
-  opacity: 0.4;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 3;
+  transition: background 0.5s ease;
 }
 
 .treatment-card:hover .treatment-card-image::before {
-  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .treatment-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.08);
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .treatment-card:hover .treatment-card-image img {
-  transform: scale(1.15);
+  transform: scale(1.08);
+}
+
+.treatment-card-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  text-align: center;
+  width: 100%;
+  padding: 16px 12px;
+}
+
+.treatment-card-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  font-style: italic;
+  color: white;
+  line-height: 1.2;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .treatment-card-number {
@@ -2029,31 +2100,18 @@ h3,
   top: 20px;
   right: 20px;
   font-family: var(--serif);
-  font-size: 48px;
+  font-size: 24px;
   font-style: italic;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.3);
-  z-index: 3;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.treatment-card:hover .treatment-card-number {
-  color: rgba(255, 255, 255, 0.9);
-  transform: scale(1.1);
+  color: white;
+  z-index: 7;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .treatment-card-overlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 4;
   padding: 28px 24px;
-  background: linear-gradient(to top,
-      rgba(26, 20, 16, 0.7) 0%,
-      rgba(26, 20, 16, 0.3) 60%,
-      rgba(26, 20, 16, 0.1) 100%);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -2062,10 +2120,6 @@ h3,
 
 .treatment-card:hover .treatment-card-overlay {
   padding: 32px 28px;
-  background: linear-gradient(to top,
-      rgba(26, 20, 16, 0.95) 0%,
-      rgba(26, 20, 16, 0.8) 50%,
-      rgba(26, 20, 16, 0.4) 100%);
 }
 
 .treatment-card-label {
@@ -4195,12 +4249,12 @@ h3,
 }
 
 /* =========================================================
-   SIGNATURE TREATMENTS - Editorial Grid
+   SIGNATURE TREATMENTS - Scroll Animation
    ========================================================= */
 .signature-section {
   position: relative;
-  padding: 80px 0;
-  background: var(--off-white);
+  background: #f5f0eb;
+  min-height: 100vh;
 }
 
 .sig-editorial-header {
@@ -4252,7 +4306,7 @@ h3,
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.sig-editorial-row:hover + .sig-divider,
+.sig-editorial-row:hover+.sig-divider,
 .sig-divider:has(+ .sig-editorial-row:hover) {
   background: rgba(139, 69, 19, 0.3);
 }
@@ -4534,7 +4588,7 @@ h3,
     background: rgba(139, 69, 19, 0.12);
   }
 
-  .sig-editorial-row:hover + .sig-divider,
+  .sig-editorial-row:hover+.sig-divider,
   .sig-divider:has(+ .sig-editorial-row:hover) {
     background: rgba(139, 69, 19, 0.12);
   }
@@ -4575,23 +4629,357 @@ h3,
 }
 
 /* =========================================================
-   SCROLL PROGRESS
+   SIGNATURE TREATMENTS - Scroll Animation Design
    ========================================================= */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  z-index: 200;
-  background: transparent;
+.signature-section {
+  position: relative;
+  background: #f5f0eb;
+  min-height: 100vh;
 }
 
-.scroll-progress span {
-  display: block;
+.sig-scroll-container {
+  position: relative;
+  min-height: 400vh;
+  background: #f5f0eb;
+}
+
+.sig-scroll-container>.sig-header-animate {
+  height: 100vh;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  background: #f5f0eb;
+}
+
+.sig-header-animate {
+  text-align: center;
+  opacity: 1;
+}
+
+.sig-header-animate .section-subtitle,
+.sig-header-animate .section-title,
+.sig-header-animate .section-desc {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Override reveal system for signature section */
+.signature-section .reveal,
+.sig-scroll-container .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.sig-scroll-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 2;
+  background: #f5f0eb;
+}
+
+.sig-scroll-track {
+  display: flex;
+  width: 400vw;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.sig-scroll-item {
+  flex: 0 0 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 0 8vw;
+  width: 100vw;
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  visibility: visible !important;
+}
+
+.sig-item-content {
+  position: relative;
+}
+
+.sig-item-number {
+  font-family: var(--serif);
+  font-size: 120px;
+  font-weight: 500;
+  color: var(--copper-brown);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: 20px;
+  transition: all 0.4s ease;
+}
+
+.sig-scroll-item:hover .sig-item-number {
+  opacity: 0.3;
+}
+
+.sig-item-info {
+  margin-bottom: 40px;
+}
+
+.sig-item-title {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--deep-brown);
+  margin-bottom: 20px;
+  transition: all 0.4s ease;
+}
+
+.sig-item-title em {
+  font-style: italic;
+  color: var(--copper-brown);
+}
+
+.sig-scroll-item:hover .sig-item-title em {
+  color: var(--deep-brown);
+}
+
+.sig-item-desc {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 480px;
+}
+
+.sig-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.sig-item-duration {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--copper-brown);
+}
+
+.sig-item-category {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.sig-item-link {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--copper-brown);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  margin-left: auto;
+}
+
+.sig-item-link:hover {
+  color: var(--deep-brown);
+}
+
+.sig-item-link:hover span {
+  transform: translateX(4px);
+}
+
+.sig-item-link span {
+  transition: transform 0.3s ease;
+}
+
+.sig-item-visual {
+  position: relative;
+  height: 70vh;
+  max-height: 600px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.sig-item-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.sig-scroll-item:hover .sig-item-visual::before {
+  opacity: 1;
+}
+
+.sig-item-visual img {
+  width: 100%;
   height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, var(--copper-brown) 0%, var(--mid-brown) 100%);
+  object-fit: cover;
+  transform: scale(1.05);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.sig-scroll-item:hover .sig-item-visual img {
+  transform: scale(1);
+}
+
+.sig-scroll-progress {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 10;
+}
+
+.sig-progress-bar {
+  width: 200px;
+  height: 2px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.sig-progress-bar::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 25%;
+  background: var(--copper-brown);
+  transition: width 0.4s ease;
+}
+
+.sig-progress-dots {
+  display: flex;
+  gap: 12px;
+}
+
+.sig-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sig-dot.active {
+  background: var(--copper-brown);
+  transform: scale(1.3);
+}
+
+/* Navigation Arrows */
+.sig-scroll-nav {
+  position: absolute;
+  bottom: 40px;
+  right: 48px;
+  display: flex;
+  gap: 16px;
+  z-index: 10;
+}
+
+.sig-nav-btn {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--copper-brown);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.sig-nav-btn:hover {
+  background: var(--copper-brown);
+  color: white;
+}
+
+.sig-nav-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Scroll indicator */
+.sig-scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  z-index: 10;
+}
+
+.sig-scroll-hint-line {
+  width: 40px;
+  height: 1px;
+  background: var(--copper-brown);
+  opacity: 0.5;
+}
+
+@media (max-width: 991.98px) {
+  .sig-scroll-item {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 24px;
+  }
+
+  .sig-item-visual {
+    height: 40vh;
+    max-height: 400px;
+  }
+
+  .sig-item-title {
+    font-size: 28px;
+  }
+
+  .sig-item-number {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .sig-scroll-item {
+    padding: 0 20px;
+  }
+
+  .sig-scroll-progress {
+    bottom: 20px;
+  }
+
+  .sig-scroll-nav {
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .sig-scroll-hint {
+    left: 20px;
+    bottom: 20px;
+  }
 }
 
 /* =========================================================
@@ -5259,11 +5647,15 @@ h3,
   left: -15px;
   width: 100%;
   height: 100%;
-  background: #c8bfae;
-  opacity: 0.8;
-  animation: blob-morph 8s ease-in-out infinite alternate;
+  /* background: #E5DFD3; */
+  border-radius: 50%;
   z-index: 1;
   transition: all 0.5s ease;
+}
+
+.concern-item:nth-child(even) .concern-blob-bg {
+  left: auto;
+  right: -15px;
 }
 
 .concern-image {
@@ -5273,14 +5665,33 @@ h3,
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  /* Fallback */
   overflow: hidden;
-  animation: blob-morph-alt 9s ease-in-out infinite alternate-reverse;
   z-index: 2;
-  /* Fix for Safari/Chrome overflow:hidden border-radius bug */
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   transform: translateZ(0);
 }
+
+/* Unique Organic Pebble Shapes for each item */
+.concern-item:nth-child(1) .concern-image,
+.concern-item:nth-child(1) .concern-blob-bg {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+.concern-item:nth-child(2) .concern-image,
+.concern-item:nth-child(2) .concern-blob-bg {
+  border-radius: 30% 70% 50% 50% / 40% 40% 60% 60%;
+}
+
+.concern-item:nth-child(3) .concern-image,
+.concern-item:nth-child(3) .concern-blob-bg {
+  border-radius: 40% 60% 30% 70% / 70% 40% 60% 30%;
+}
+
+.concern-item:nth-child(4) .concern-image,
+.concern-item:nth-child(4) .concern-blob-bg {
+  border-radius: 70% 30% 60% 40% / 40% 70% 30% 60%;
+}
+
 
 .concern-image img {
   width: 100%;
@@ -8302,4 +8713,498 @@ a.contact-value:hover {
     font-size: 14px;
     padding: 0 var(--space-sm);
   }
+}
+
+/* Signature Treatments Blob Effect */
+.sig-blob-wrapper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
+.sig-blob-bg {
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  width: 100%;
+  height: 100%;
+  background: #c8bfae;
+  opacity: 0.6;
+  animation: blob-morph 10s ease-in-out infinite alternate;
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+.sig-blob-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  animation: blob-morph-alt 11s ease-in-out infinite alternate-reverse;
+  z-index: 2;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: translateZ(0);
+}
+
+.sig-blob-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.sig-scroll-item:hover .sig-blob-image img {
+  transform: scale(1.05);
+}
+
+.sig-scroll-item:hover .sig-blob-bg {
+  transform: translate(10px, -10px) scale(1.02);
+}
+
+/* Immersive Signature Entry Effect */
+.sig-pin-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-primary);
+  /* matches page background initially */
+  z-index: 10;
+}
+
+.sig-portal-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10vmax;
+  height: 10vmax;
+  background: var(--charcoal);
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 1;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.signature-section.immersive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  /* hidden initially, revealed by JS */
+}
+
+/* Adjust texts for dark mode inside portal */
+.signature-section.immersive .section-title,
+.signature-section.immersive .section-subtitle,
+.signature-section.immersive .section-desc,
+.signature-section.immersive .sig-item-title,
+.signature-section.immersive .sig-item-desc,
+.signature-section.immersive .sig-item-duration,
+.signature-section.immersive .sig-item-category,
+.signature-section.immersive .sig-item-number,
+.signature-section.immersive .sig-item-link,
+.signature-section.immersive .view-all-articles span,
+.signature-section.immersive .view-all-articles svg {
+  color: #fff !important;
+}
+
+.signature-section.immersive .sig-item-number {
+  opacity: 0.3;
+}
+
+.signature-section.immersive .sig-scroll-item {
+  opacity: 0;
+  /* hidden for sequential reveal */
+  transform: translateY(40px);
+}
+
+/* Blob Window Mask specific styles */
+.sig-pin-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sig-window-mask {
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+  max-width: 400px;
+  max-height: 400px;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  overflow: hidden;
+  z-index: 1;
+  /* Will-change for smoother animation */
+  will-change: width, height, border-radius;
+  /* Center in flex parent implicitly via absolute if flex doesn't apply to absolute children properly, 
+     but we can just use top/left centering to be safe */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sig-window-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.sig-window-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(43, 43, 43, 0.85);
+  /* Dark charcoal overlay for text readability */
+  opacity: 0;
+  z-index: 2;
+}
+
+/* Dhun Exact Blob SVG Grid */
+.dhun-blob-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-top: 50px;
+}
+
+@media (max-width: 1024px) {
+  .dhun-blob-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .dhun-blob-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dhun-blob-item {
+  text-align: center;
+}
+
+.dhun-blob-item a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.dhun-blob-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  margin-bottom: 20px;
+}
+
+.dhun-blob-bg {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 95%;
+  height: 95%;
+  z-index: 1;
+}
+
+.dhun-blob-fg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 95%;
+  height: 95%;
+  z-index: 2;
+}
+
+.dhun-blob-title {
+  font-size: 1.5rem;
+  font-family: var(--font-primary);
+  font-weight: 400;
+  margin-top: 10px;
+  transition: color 0.3s ease;
+}
+
+.dhun-blob-item:hover .dhun-blob-title {
+  color: var(--accent-color);
+}
+
+/* Concerns Tabs Styling */
+.concerns-tabs-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.concerns-tabs {
+  display: inline-flex;
+  align-items: center;
+  background-color: #3b3135;
+  /* Dark pill background */
+  border-radius: 50px;
+  padding: 5px 20px;
+  overflow-x: auto;
+  /* for mobile scrolling */
+  max-width: 100%;
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.concerns-tabs::-webkit-scrollbar {
+  display: none;
+  /* Safari and Chrome */
+}
+
+.concern-tab-btn {
+  background: none;
+  border: none;
+  color: #9c9296;
+  /* Muted text color */
+  font-family: var(--font-primary), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 5px 25px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.concern-tab-btn:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 15px;
+  width: 1px;
+  background-color: #645a5e;
+  /* Separator color */
+}
+
+.concern-tab-btn:hover,
+.concern-tab-btn.active {
+  color: #ffffff;
+}
+
+.concern-tab-content {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.concern-tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Concerns Section Texture */
+.concerns-section {
+  background-color: #FAF8F5;
+  /* Warm earthy off-white */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  position: relative;
+  padding-bottom: 80px;
+}
+
+/* =========================================
+   PREMIUM DYNAMIC WHEEL EFFECTS
+   ========================================= */
+
+.philosophy-wheel-container {
+  --global-rotation: 0deg;
+}
+
+/* Mechanical Continuous Orbits */
+.wheel-orbit {
+  border: 1px dashed rgba(218, 165, 32, 0.2) !important;
+  animation: premiumOrbit 60s linear infinite;
+  box-shadow: inset 0 0 50px rgba(218, 165, 32, 0.05);
+}
+
+.wheel-orbit-inner {
+  border: 1px dashed rgba(218, 165, 32, 0.4) !important;
+  animation: premiumOrbit 40s linear infinite reverse;
+  box-shadow: inset 0 0 30px rgba(218, 165, 32, 0.08);
+}
+
+@keyframes premiumOrbit {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Center Pulsing Logo & Golden Beam */
+.wheel-center {
+  box-shadow: 0 0 30px rgba(218, 165, 32, 0.15);
+  animation: centerBreathe 4s ease-in-out infinite;
+}
+
+.wheel-center::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(218, 165, 32, 0.8) 0%, rgba(218, 165, 32, 0) 100%);
+  transform-origin: 0 0;
+  /* Beam points to the active node which is always at the top (0deg), so -90deg rotation */
+  transform: translateY(-50%) rotate(-90deg);
+  opacity: 0.7;
+  filter: blur(3px);
+  z-index: -1;
+  mix-blend-mode: overlay;
+}
+
+@keyframes centerBreathe {
+
+  0%,
+  100% {
+    box-shadow: 0 0 30px rgba(218, 165, 32, 0.15);
+  }
+
+  50% {
+    box-shadow: 0 0 60px rgba(218, 165, 32, 0.4);
+  }
+}
+
+/* Main Container Rotation */
+.wheel-nodes {
+  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: rotate(var(--global-rotation));
+}
+
+/* Counter-rotate the contents of the nodes so text stays perfectly upright! */
+.wheel-node {
+  --counter-rotation: calc(-1 * var(--global-rotation));
+}
+
+.wheel-node>* {
+  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: rotate(var(--counter-rotation));
+}
+
+/* Premium Active Node Glow */
+.wheel-node.active {
+  background: var(--deep-brown) !important;
+  color: #fff !important;
+  border-color: var(--warm-gold) !important;
+  animation: activeNodePulse 2.5s infinite cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes activeNodePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(218, 165, 32, 0.5);
+  }
+
+  70% {
+    box-shadow: 0 0 0 20px rgba(218, 165, 32, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(218, 165, 32, 0);
+  }
+}
+
+/* Floating Animation for Inactive Nodes */
+.wheel-node:not(.active) {
+  animation: floatNode 6s ease-in-out infinite;
+}
+
+@keyframes floatNode {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.05));
+  }
+
+  50% {
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.1));
+  }
+}
+
+/* Elegant Staggered Text Reveal */
+.philosophy-pane .pane-watermark {
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.philosophy-pane .pane-title {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.1s;
+}
+
+.philosophy-pane .pane-subtitle {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;
+}
+
+.philosophy-pane .pane-desc {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.3s;
+}
+
+.philosophy-pane.active .pane-watermark {
+  opacity: 0.04;
+  transform: translateY(0) scale(1);
+}
+
+.philosophy-pane.active .pane-title,
+.philosophy-pane.active .pane-subtitle,
+.philosophy-pane.active .pane-desc {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Continuous Golden Wavy Line behind Concerns Grid */
+.concerns-grid {
+  position: relative;
+  z-index: 2;
+}
+
+.concerns-grid::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  transform: translateY(-50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath d='M0,50 Q250,10 500,50 T1000,50' fill='none' stroke='%23d3af37' stroke-width='1.5' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 800px 100%;
+  z-index: -1;
 }

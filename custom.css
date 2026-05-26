@@ -1,0 +1,81 @@
+/* Concerns Tabs Styling */
+.concerns-tabs-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.concerns-tabs {
+    display: inline-flex;
+    align-items: center;
+    background-color: #3b3135;
+    /* Dark pill background */
+    border-radius: 50px;
+    padding: 5px 20px;
+    overflow-x: auto;
+    /* for mobile scrolling */
+    max-width: 100%;
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.concerns-tabs::-webkit-scrollbar {
+    display: none;
+    /* Safari and Chrome */
+}
+
+.concern-tab-btn {
+    background: none;
+    border: none;
+    color: #9c9296;
+    /* Muted text color */
+    font-family: var(--font-primary), sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 5px 25px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+}
+
+.concern-tab-btn:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 15px;
+    width: 1px;
+    background-color: #645a5e;
+    /* Separator color */
+}
+
+.concern-tab-btn:hover,
+.concern-tab-btn.active {
+    color: #ffffff;
+}
+
+.concern-tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.concern-tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

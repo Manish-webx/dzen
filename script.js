@@ -542,4 +542,178 @@
     });
   }
 
+  /* ---------- Quick Actions Toggle ---------- */
+  var quickActionsToggle = document.getElementById('quickActionsToggle');
+  var quickActionsMenu = document.getElementById('quickActionsMenu');
+
+  if (quickActionsToggle && quickActionsMenu) {
+    quickActionsToggle.addEventListener('click', function() {
+      var isActive = quickActionsMenu.classList.toggle('active');
+      quickActionsToggle.classList.toggle('active', isActive);
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!quickActionsToggle.contains(e.target) && !quickActionsMenu.contains(e.target)) {
+        quickActionsMenu.classList.remove('active');
+        quickActionsToggle.classList.remove('active');
+      }
+    });
+  }
+
 })();
+
+// ==========================================
+// Molecule 3D Animation (Supports Multiple)
+// ==========================================
+(function () {
+    const svgs = document.querySelectorAll('.mol-svg');
+    if (!svgs.length) return;
+
+    // Icosahedron vertices (golden-ratio based)
+    const phi = (1 + Math.sqrt(5)) / 2;
+    const V = [
+        [0, 1, phi], [0, -1, phi],
+        [0, 1, -phi], [0, -1, -phi],
+        [1, phi, 0], [-1, phi, 0],
+        [1, -phi, 0], [-1, -phi, 0],
+        [phi, 0, 1], [-phi, 0, 1],
+        [phi, 0, -1], [-phi, 0, -1],
+    ];
+
+    const E = [];
+    for (let i = 0; i < V.length; i++) {
+        for (let j = i + 1; j < V.length; j++) {
+            const dx = V[i][0] - V[j][0], dy = V[i][1] - V[j][1], dz = V[i][2] - V[j][2];
+            const d2 = dx * dx + dy * dy + dz * dz;
+            if (Math.abs(d2 - 4) < 0.01) E.push([i, j]);
+        }
+    }
+
+    const NS = 'http://www.w3.org/2000/svg';
+    const RADIUS = 110;
+    const PERSPECTIVE = 5;
+
+    const instances = Array.from(svgs).map(svg => {
+        let nodesG = svg.querySelector('#mol-nodes');
+        let edgesG = svg.querySelector('#mol-edges');
+        
+        if (!nodesG) { nodesG = document.createElementNS(NS, 'g'); nodesG.id = 'mol-nodes'; svg.appendChild(nodesG); }
+        if (!edgesG) { edgesG = document.createElementNS(NS, 'g'); edgesG.id = 'mol-edges'; edgesG.setAttribute('stroke', 'rgba(217,164,65,0.3)'); svg.insertBefore(edgesG, nodesG); }
+
+        const nodeEls = V.map(() => {
+            const c = document.createElementNS(NS, 'circle');
+            c.setAttribute('r', '0');
+            c.setAttribute('fill', 'url(#molNode)');
+            nodesG.appendChild(c);
+            return c;
+        });
+        const edgeEls = E.map(() => {
+            const l = document.createElementNS(NS, 'line');
+            edgesG.appendChild(l);
+            return l;
+        });
+
+        const halo = document.createElementNS(NS, 'circle');
+        halo.setAttribute('cx', '0');
+        halo.setAttribute('cy', '0');
+        halo.setAttribute('r', '110');
+        halo.setAttribute('fill', 'rgba(255, 220, 150, 0.10)');
+        halo.setAttribute('filter', 'url(#molGlow)');
+        svg.insertBefore(halo, edgesG);
+
+        return {
+            svg,
+            nodeEls,
+            edgeEls,
+            ax: 0.4 + Math.random(),
+            ay: Math.random() * Math.PI * 2
+        };
+    });
+
+    let lastT = performance.now();
+
+    function project(p) {
+        const f = PERSPECTIVE / (PERSPECTIVE + p[2]);
+        return {
+            x: p[0] * RADIUS * f / phi,
+            y: p[1] * RADIUS * f / phi,
+            d: (p[2] + phi) / (2 * phi),
+            f
+        };
+    }
+
+    function rotate(p, ay, ax) {
+        let [x, y, z] = p;
+        let cy = Math.cos(ay), sy = Math.sin(ay);
+        let x1 = x * cy + z * sy;
+        let z1 = -x * sy + z * cy;
+        let cx = Math.cos(ax), sx = Math.sin(ax);
+        let y1 = y * cx - z1 * sx;
+        let z2 = y * sx + z1 * cx;
+        return [x1, y1, z2];
+    }
+
+    function tick(t) {
+        const dt = Math.min(80, t - lastT) / 1000;
+        lastT = t;
+
+        instances.forEach(inst => {
+            inst.ay += dt * 0.32;
+            inst.ax += dt * 0.06;
+
+            const axEff = inst.ax + Math.sin(t / 4000) * 0.08;
+            const projected = V.map(p => project(rotate(p, inst.ay, axEff)));
+
+            projected.forEach((p, i) => {
+                const r = 4.2 + p.d * 4.8;
+                const op = 0.45 + p.d * 0.55;
+                const el = inst.nodeEls[i];
+                el.setAttribute('cx', p.x.toFixed(2));
+                el.setAttribute('cy', p.y.toFixed(2));
+                el.setAttribute('r', r.toFixed(2));
+                el.setAttribute('opacity', op.toFixed(2));
+            });
+
+            E.forEach(([a, b], i) => {
+                const pa = projected[a], pb = projected[b];
+                const op = (0.18 + Math.min(pa.d, pb.d) * 0.65);
+                const sw = 0.6 + Math.min(pa.d, pb.d) * 1.4;
+                const el = inst.edgeEls[i];
+                el.setAttribute('x1', pa.x.toFixed(2));
+                el.setAttribute('y1', pa.y.toFixed(2));
+                el.setAttribute('x2', pb.x.toFixed(2));
+                el.setAttribute('y2', pb.y.toFixed(2));
+                el.setAttribute('opacity', op.toFixed(2));
+                el.setAttribute('stroke-width', sw.toFixed(2));
+            });
+        });
+
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+})();
+
+// ==========================================
+// Lenis Smooth Scroll Initialization
+// ==========================================
+if (typeof Lenis !== 'undefined') {
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+}

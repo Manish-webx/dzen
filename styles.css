@@ -1077,18 +1077,27 @@ h3,
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* Specific handling for left-aligned headers (Doctors/Contact) */
-[style*="text-align: left"] .section-subtitle::before {
+/* Specific handling for left-aligned headers */
+.section-subtitle::before {
   display: none;
+  /* Hide left line by default for left-aligned content */
 }
 
-[style*="text-align: left"] .section-subtitle {
+.section-subtitle {
   margin-left: 0 !important;
 }
 
-[style*="text-align: left"] .section-title,
-[style*="text-align: left"] .section-desc {
-  margin-left: 0;
+/* Show left line only when explicitly centered */
+.text-center .section-subtitle::before,
+.section-header:not([style*="text-align: left"]):not(.text-start) .section-subtitle::before {
+  display: block;
+}
+
+/* Center the subtitle properly when lines are shown */
+.text-center .section-subtitle,
+.section-header:not([style*="text-align: left"]):not(.text-start) .section-subtitle {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 /* =========================================================
@@ -1099,7 +1108,6 @@ h3,
   padding: 80px 24px 80px;
   background: linear-gradient(180deg, var(--off-white) 0%, #F8F4EE 50%, var(--cream) 100%);
   overflow: hidden;
-  min-height: 100vh;
 }
 
 .about-us::before {

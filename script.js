@@ -201,10 +201,10 @@
 
     if (img) {
       card.addEventListener('mouseenter', function() {
-        gsap.to(img, { scale: 1.04, duration: 0.6, ease: 'power2.out' });
+        if (typeof gsap !== 'undefined') gsap.to(img, { scale: 1.04, duration: 0.6, ease: 'power2.out' });
       });
       card.addEventListener('mouseleave', function() {
-        gsap.to(img, { scale: 1, duration: 0.4, ease: 'power2.out' });
+        if (typeof gsap !== 'undefined') gsap.to(img, { scale: 1, duration: 0.4, ease: 'power2.out' });
       });
     }
   });
@@ -235,38 +235,40 @@
   });
 
   /* ---------- About Us Section Animations ---------- */
-  gsap.from('.about-us-subtitle', {
-    scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
-    opacity: 0, y: 30, duration: 0.8, ease: 'power3.out'
-  });
-  gsap.from('.about-us-title', {
-    scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
-    opacity: 0, y: 40, duration: 1, delay: 0.15, ease: 'power3.out'
-  });
-  gsap.from('.about-us-intro', {
-    scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
-    opacity: 0, y: 30, duration: 0.8, delay: 0.3, ease: 'power3.out'
-  });
-  gsap.from('.about-us-divider', {
-    scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
-    opacity: 0, scaleX: 0, duration: 0.8, delay: 0.4, ease: 'power3.out'
-  });
-  gsap.from('.about-paragraph', {
-    scrollTrigger: { trigger: '.about-left-column', start: 'top 85%' },
-    opacity: 0, y: 30, duration: 0.8, ease: 'power3.out'
-  });
-  gsap.from('.about-accordion', {
-    scrollTrigger: { trigger: '.about-accordions', start: 'top 85%' },
-    opacity: 0, y: 40, duration: 0.6, stagger: 0.15, ease: 'power3.out'
-  });
-  gsap.from('.about-image-container', {
-    scrollTrigger: { trigger: '.about-image-container', start: 'top 85%' },
-    opacity: 0, scale: 0.9, duration: 1, ease: 'power3.out'
-  });
-  gsap.from('.about-watermark', {
-    scrollTrigger: { trigger: '.about-wave', start: 'top 90%' },
-    opacity: 0, duration: 1.2, ease: 'power2.out'
-  });
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.from('.about-us-subtitle', {
+      scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
+      opacity: 0, y: 30, duration: 0.8, ease: 'power3.out'
+    });
+    gsap.from('.about-us-title', {
+      scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
+      opacity: 0, y: 40, duration: 1, delay: 0.15, ease: 'power3.out'
+    });
+    gsap.from('.about-us-intro', {
+      scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
+      opacity: 0, y: 30, duration: 0.8, delay: 0.3, ease: 'power3.out'
+    });
+    gsap.from('.about-us-divider', {
+      scrollTrigger: { trigger: '.about-us', start: 'top 80%' },
+      opacity: 0, scaleX: 0, duration: 0.8, delay: 0.4, ease: 'power3.out'
+    });
+    gsap.from('.about-paragraph', {
+      scrollTrigger: { trigger: '.about-left-column', start: 'top 85%' },
+      opacity: 0, y: 30, duration: 0.8, ease: 'power3.out'
+    });
+    gsap.from('.about-accordion', {
+      scrollTrigger: { trigger: '.about-accordions', start: 'top 85%' },
+      opacity: 0, y: 40, duration: 0.6, stagger: 0.15, ease: 'power3.out'
+    });
+    gsap.from('.about-image-container', {
+      scrollTrigger: { trigger: '.about-image-container', start: 'top 85%' },
+      opacity: 0, scale: 0.9, duration: 1, ease: 'power3.out'
+    });
+    gsap.from('.about-watermark', {
+      scrollTrigger: { trigger: '.about-wave', start: 'top 90%' },
+      opacity: 0, duration: 1.2, ease: 'power2.out'
+    });
+  }
 
   /* ---------- Drag to Scroll Functionality ---------- */
   function makeDraggable(slider) {

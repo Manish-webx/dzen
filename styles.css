@@ -5983,7 +5983,7 @@ a.detail-value:hover {
 }
 
 .contact-form-col {
-  background: #FFFFFF;
+  background: var(--bg-secondary);
   padding: 80px 60px;
   position: relative;
 }

@@ -115,7 +115,7 @@ h3,
 .h3 {
   font-family: var(--serif);
   font-size: clamp(20px, 2.5vw, 24px);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.417;
   letter-spacing: 0;
 }
@@ -3366,7 +3366,6 @@ h3,
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-md) 0;
   font-family: var(--serif);
   font-size: 18px;
   font-weight: 400;
@@ -6989,7 +6988,7 @@ textarea.form-control {
    ========================================================= */
 .premium-footer {
   position: relative;
-  background: var(--brand-gradient);
+  background: var(--deep-brown);
   color: rgba(255, 255, 255, 0.85);
   overflow: hidden;
 }
@@ -6998,11 +6997,9 @@ textarea.form-control {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='103.923' viewBox='0 0 60 103.923' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(217,164,65,0.2)' stroke-width='0.25'%3E%3Cpath d='M30 17.32l15-8.66v-17.32M30 17.32v17.32L15 43.3M30 51.96l15-8.66m-30 0l15 8.66v17.32M15 77.94l15 8.66v17.32M30 86.6l15-8.66M0 103.92V86.6l15-8.66M60 103.92V86.6L45 77.94M0 0v17.32l15 8.66M60 0v17.32L45 25.98'/%3E%3Ccircle cx='30' cy='17.32' r='0.6' fill='rgba(217,164,65,0.4)'/%3E%3Ccircle cx='30' cy='51.96' r='0.6' fill='rgba(217,164,65,0.4)'/%3E%3Ccircle cx='30' cy='86.6' r='0.6' fill='rgba(217,164,65,0.4)'/%3E%3Ccircle cx='15' cy='43.3' r='0.6' fill='rgba(217,164,65,0.4)'/%3E%3Ccircle cx='45' cy='77.94' r='0.6' fill='rgba(217,164,65,0.4)'/%3E%3Ccircle cx='45' cy='25.98' r='0.6' fill='rgba(217,164,65,0.4)'/%3E%3Ccircle cx='15' cy='77.94' r='0.6' fill='rgba(217,164,65,0.4)'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 240px 415.69px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 1;
-  opacity: 0.8;
 }
 
 /* Decorative Corners */
@@ -7279,6 +7276,7 @@ img.footer-logo:hover {
 a.contact-value:hover {
   color: var(--copper-brown);
 }
+
 
 /* Newsletter Section */
 .footer-newsletter-section {
@@ -7754,6 +7752,7 @@ a.contact-value:hover {
     font-size: 11px;
   }
 }
+
 
 /* =========================================================
    MEDIA COVERAGE - Masonry Collage Grid
@@ -9338,7 +9337,7 @@ a.contact-value:hover {
 .founder-pane-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(75, 43, 32, 0.6) 40%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(75, 43, 32, 0.6) 40%, transparent 100%);
   opacity: 0.8;
   transition: opacity 0.7s ease;
 }
@@ -9441,19 +9440,24 @@ a.contact-value:hover {
     height: auto;
     min-height: 100vh;
   }
+
   .founder-pane {
     height: 50vh;
     flex: none !important;
   }
+
   .founder-pane:hover {
     height: 65vh;
   }
+
   .founder-pane-content {
     padding: 30px 20px;
   }
+
   .founder-pane-name {
     font-size: 2.2rem;
   }
+
   .founder-pane-quote {
     font-size: 1.1rem;
   }
@@ -9490,9 +9494,19 @@ a.contact-value:hover {
 }
 
 @keyframes molAmbient {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  33% { transform: scale(1.05) rotate(8deg); }
-  66% { transform: scale(.97) rotate(-6deg); }
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  33% {
+    transform: scale(1.05) rotate(8deg);
+  }
+
+  66% {
+    transform: scale(.97) rotate(-6deg);
+  }
 }
 
 .mol-stage {
@@ -9507,8 +9521,15 @@ a.contact-value:hover {
 }
 
 @keyframes molFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-14px);
+  }
 }
 
 .mol-glass {
@@ -9529,7 +9550,10 @@ a.contact-value:hover {
 .mol-glass::before {
   content: '';
   position: absolute;
-  top: 8%; left: 12%; width: 36%; height: 30%;
+  top: 8%;
+  left: 12%;
+  width: 36%;
+  height: 30%;
   border-radius: 50%;
   background: radial-gradient(ellipse at 35% 35%, rgba(255, 250, 235, 0.85) 0%, rgba(255, 235, 180, 0.35) 35%, transparent 70%);
   filter: blur(4px);
@@ -9539,7 +9563,10 @@ a.contact-value:hover {
 .mol-glass::after {
   content: '';
   position: absolute;
-  bottom: 6%; left: 15%; right: 15%; height: 22%;
+  bottom: 6%;
+  left: 15%;
+  right: 15%;
+  height: 22%;
   border-radius: 50%;
   background: radial-gradient(ellipse at 50% 100%, rgba(255, 230, 170, 0.55) 0%, rgba(217, 164, 65, 0.25) 30%, transparent 70%);
   filter: blur(8px);
@@ -9561,7 +9588,8 @@ a.contact-value:hover {
 
 .mol-spark {
   position: absolute;
-  width: 4px; height: 4px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: radial-gradient(circle, #FFE8B0 0%, rgba(217, 164, 65, 0.6) 50%, transparent 100%);
   filter: blur(0.5px);
@@ -9569,13 +9597,46 @@ a.contact-value:hover {
   pointer-events: none;
 }
 
-.mol-spark-1 { top: 18%; left: 12%; animation: molSpark 4.5s ease-in-out infinite; }
-.mol-spark-2 { top: 28%; right: 8%; animation: molSpark 5.8s ease-in-out infinite .8s; width: 3px; height: 3px; }
-.mol-spark-3 { bottom: 22%; left: 6%; animation: molSpark 6.2s ease-in-out infinite 2s; width: 5px; height: 5px; }
+.mol-spark-1 {
+  top: 18%;
+  left: 12%;
+  animation: molSpark 4.5s ease-in-out infinite;
+}
+
+.mol-spark-2 {
+  top: 28%;
+  right: 8%;
+  animation: molSpark 5.8s ease-in-out infinite .8s;
+  width: 3px;
+  height: 3px;
+}
+
+.mol-spark-3 {
+  bottom: 22%;
+  left: 6%;
+  animation: molSpark 6.2s ease-in-out infinite 2s;
+  width: 5px;
+  height: 5px;
+}
 
 @keyframes molSpark {
-  0%, 100% { transform: translate(0, 0) scale(0.6); opacity: 0; }
-  20% { opacity: 1; }
-  50% { transform: translate(-6px, -8px) scale(1); opacity: 1; }
-  80% { opacity: 0.7; }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(-6px, -8px) scale(1);
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 0.7;
+  }
 }

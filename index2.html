@@ -334,53 +334,243 @@
             </div>
         </section>
 
-        <!-- Meet Our Doctors Section (Redesigned) -->
-        <section class="founders-split-section">
-            <div class="founder-pane" tabindex="0">
-                <div class="founder-pane-bg" style="background-image: url('dr-aarushi.webp');">
-                </div>
-                <div class="founder-pane-overlay"></div>
-                <div class="founder-pane-content">
-                    <h2 class="founder-pane-name">Dr. Aarushi</h2>
-                    <div class="founder-pane-role">Scientific Authority</div>
-                    <div class="founder-pane-details">
-                        <p class="founder-pane-quote">"The most ambitious thing a doctor can do is to leave a patient
-                            with less, not more."</p>
-                        <p class="founder-pane-desc">A dermatologist with global exposure and an obsessive commitment to
-                            clinical excellence. Dr. Aarushi leads every protocol — bringing precision, safety and a
-                            deep, science-first approach to aesthetic medicine.</p>
-                        <div class="founder-pane-creds">
-                            <span class="founder-pane-cred">MD Dermatology</span>
-                            <span class="founder-pane-cred">Global Fellowships</span>
-                            <span class="founder-pane-cred">Senior Trainer</span>
-                        </div>
+        <!-- Meet Our Doctors Section (Redesigned with Parallax) -->
+        <style>
+            .founders-parallax-wrapper {
+                position: relative;
+                width: 100%;
+            }
+
+            .parallax-panel {
+                position: sticky;
+                top: 0;
+                min-height: 70vh;
+                width: 100%;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                background-color: #FAF9F6;
+                /* Matches theme */
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            }
+
+            .parallax-bg {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 50%;
+                background-size: cover;
+                background-position: center;
+                z-index: 0;
+            }
+
+            .parallax-overlay {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 50%;
+                background: linear-gradient(to right, rgba(250, 248, 245, 1) 0%, rgba(250, 248, 245, 0) 30%);
+                z-index: 1;
+            }
+
+            .parallax-content {
+                position: relative;
+                z-index: 2;
+                color: #4B2B20;
+                text-align: left;
+                width: 50%;
+                padding: 4rem 6rem;
+                transform: translateY(50px);
+                opacity: 0;
+                transition: all 1s ease;
+            }
+
+            /* Alternate Layout for Second Panel */
+            .parallax-panel.alt {
+                justify-content: flex-end;
+                background-color: #FAF9F6;
+            }
+
+            .parallax-panel.alt .parallax-bg {
+                right: auto;
+                left: 0;
+            }
+
+            .parallax-panel.alt .parallax-overlay {
+                right: auto;
+                left: 0;
+                background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 30%);
+            }
+
+            .parallax-content.in-view {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .parallax-name {
+                font-family: 'Playfair Display', serif;
+                font-size: 4rem;
+                margin-bottom: 0.5rem;
+                font-weight: 500;
+            }
+
+            .parallax-role {
+                font-size: 1.2rem;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                color: #cfa875;
+                margin-bottom: 2rem;
+            }
+
+            .parallax-quote {
+                font-size: 1.5rem;
+                font-style: italic;
+                margin-bottom: 1.5rem;
+                line-height: 1.4;
+            }
+
+            .parallax-desc {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                line-height: 1.6;
+                margin-bottom: 2.5rem;
+            }
+
+            .parallax-creds {
+                display: flex;
+                gap: 1.5rem;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .parallax-cred {
+                padding: 0.5rem 1.5rem;
+                border: 1px solid rgba(75, 43, 32, 0.3);
+                border-radius: 50px;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            @media (max-width: 992px) {
+
+                .parallax-panel,
+                .parallax-panel.alt {
+                    justify-content: center;
+                }
+
+                .parallax-bg,
+                .parallax-panel.alt .parallax-bg {
+                    width: 100%;
+                    left: 0;
+                    right: auto;
+                }
+
+                .parallax-overlay,
+                .parallax-panel.alt .parallax-overlay {
+                    width: 100%;
+                    left: 0;
+                    right: auto;
+                    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+                }
+
+                .parallax-content,
+                .parallax-panel.alt .parallax-content {
+                    width: 100%;
+                    text-align: center;
+                    color: #fff;
+                    padding: 3rem 2rem;
+                }
+
+                .parallax-cred {
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                }
+
+                .parallax-creds {
+                    justify-content: center;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .parallax-name {
+                    font-size: 2.5rem;
+                }
+
+                .parallax-quote {
+                    font-size: 1.2rem;
+                }
+
+                .parallax-content {
+                    padding: 2rem 1rem;
+                }
+
+                .parallax-creds {
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+            }
+        </style>
+        <section class="founders-parallax-wrapper">
+            <!-- Dr Aarushi -->
+            <div class="parallax-panel">
+                <div class="parallax-bg" style="background-image: url('dr-aarushi.webp');"></div>
+                <div class="parallax-overlay"></div>
+                <div class="parallax-content gs-reveal">
+                    <h2 class="parallax-name">Dr. Aarushi</h2>
+                    <div class="parallax-role">Scientific Authority</div>
+                    <p class="parallax-quote">"The most ambitious thing a doctor can do is to leave a patient with less,
+                        not more."</p>
+                    <p class="parallax-desc">A dermatologist with global exposure and an obsessive commitment to
+                        clinical excellence. Dr. Aarushi leads every protocol — bringing precision, safety and a deep,
+                        science-first approach to aesthetic medicine.</p>
+                    <div class="parallax-creds">
+                        <span class="parallax-cred">MD Dermatology</span>
+                        <span class="parallax-cred">Global Fellowships</span>
+                        <span class="parallax-cred">Senior Trainer</span>
                     </div>
                 </div>
             </div>
 
-            <div class="founder-pane" tabindex="0">
-                <div class="founder-pane-bg"
-                    style="background-image: url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1200&q=80');">
+            <!-- Rahul -->
+            <div class="parallax-panel alt">
+                <div class="parallax-bg"
+                    style="background-image: url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1200&q=80'); background-position: top center;">
                 </div>
-                <div class="founder-pane-overlay"></div>
-                <div class="founder-pane-content">
-                    <h2 class="founder-pane-name">Rahul</h2>
-                    <div class="founder-pane-role">Vision Architect</div>
-                    <div class="founder-pane-details">
-                        <p class="founder-pane-quote">"D'Zen is not a clinic. It is a philosophy that happens to operate
-                            one."</p>
-                        <p class="founder-pane-desc">Concept-driven brand builder and experience architect. Rahul shapes
-                            the "why" behind D'Zen — the narrative, the spaces, the unhurried experience that makes
-                            intelligent transformation feel inevitable rather than transactional.</p>
-                        <div class="founder-pane-creds">
-                            <span class="founder-pane-cred">Brand Strategy</span>
-                            <span class="founder-pane-cred">Experience Design</span>
-                            <span class="founder-pane-cred">Hospitality</span>
-                        </div>
+                <div class="parallax-overlay"></div>
+                <div class="parallax-content gs-reveal">
+                    <h2 class="parallax-name">Rahul</h2>
+                    <div class="parallax-role">Vision Architect</div>
+                    <p class="parallax-quote">"D'Zen is not a clinic. It is a philosophy that happens to operate one."
+                    </p>
+                    <p class="parallax-desc">Concept-driven brand builder and experience architect. Rahul shapes the
+                        "why" behind D'Zen — the narrative, the spaces, the unhurried experience that makes intelligent
+                        transformation feel inevitable rather than transactional.</p>
+                    <div class="parallax-creds">
+                        <span class="parallax-cred">Brand Strategy</span>
+                        <span class="parallax-cred">Experience Design</span>
+                        <span class="parallax-cred">Hospitality</span>
                     </div>
                 </div>
             </div>
         </section>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                document.querySelectorAll('.gs-reveal').forEach((el) => {
+                    observer.observe(el);
+                });
+            });
+        </script>
 
         <!-- Services Slider Section -->
         <section class="treatments-section"
@@ -1395,29 +1585,6 @@
     </main>
 
     <!-- Premium Footer -->
-    <style>
-        .premium-footer {
-            background-color: var(--copper-brown) !important;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E") !important;
-        }
-        
-        .premium-footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%);
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .premium-footer > * {
-            position: relative;
-            z-index: 2;
-        }
-    </style>
     <footer class="premium-footer">
         <!-- Decorative Corner Elements -->
         <div class="footer-corner footer-corner-tl"></div>

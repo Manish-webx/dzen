@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon | D'Zen Derma</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #FAF7F2;
+            --deep-brown: #4B2B20;
+            --copper: #C19A6B;
+            --text: #8A827B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            background: var(--cream);
+            color: var(--deep-brown);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 80px;
+        }
+
+        .logo img {
+            max-width: 320px;
+        }
+
+        .btn-soon {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            color: white;
+            background: linear-gradient(135deg, #4B2B20 0%, #8B4513 100%);
+            border: none;
+            border-radius: 60px;
+            overflow: hidden;
+            cursor: default;
+            box-shadow: 0 10px 40px rgba(75, 43, 32, 0.25);
+        }
+
+        .btn-soon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: wave 2.5s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0% {
+                left: -100%;
+            }
+
+            50%,
+            100% {
+                left: 100%;
+            }
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 2.6rem;
+            font-style: italic;
+            color: var(--deep-brown);
+            line-height: 1.5;
+            max-width: 400px;
+            margin-top: 50px;
+            margin-bottom: 40px;
+        }
+
+        .contact {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .contact a {
+            color: var(--copper);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .contact a:hover {
+            color: var(--deep-brown);
+        }
+
+        @media (max-width: 480px) {
+            .page {
+                padding: 40px 24px;
+            }
+
+            .logo img {
+                max-width: 200px;
+            }
+
+            .logo {
+                margin-bottom: 60px;
+            }
+
+            .btn-soon {
+                padding: 15px 30px;
+                font-size: 14px;
+            }
+
+            .subtitle {
+                font-size: 2rem;
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="logo">
+            <img src="logo1.png" alt="D'Zen Derma">
+        </div>
+        <div class="btn-soon">Coming Soon</div>
+        <p class="subtitle">Something beautiful is on the way</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,229 @@
+<section class="services-section">
+    <h2 class="section-title">Clinical Dermatology Services</h2>
+
+    <div class="bento-grid">
+        <!-- Card 1: Featured (Wider on desktop) -->
+        <a href="#" class="bento-card span-2">
+            <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=800&q=80"
+                alt="Acne & Scar Treatment">
+            <div class="card-content">
+                <h3>Acne & Scar Treatment</h3>
+                <p>Comprehensive care for clear, healthy skin.</p>
+            </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="#" class="bento-card">
+            <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80"
+                alt="Laser Hair Reduction">
+            <div class="card-content">
+                <h3>Laser Hair Reduction</h3>
+                <p>Advanced, painless laser technology.</p>
+            </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="#" class="bento-card">
+            <img src="https://images.unsplash.com/photo-1598440947619-2ce16f7cb16b?auto=format&fit=crop&w=800&q=80"
+                alt="Anti-Aging & Botox">
+            <div class="card-content">
+                <h3>Anti-Aging & Botox</h3>
+                <p>Refine lines and restore volume.</p>
+            </div>
+        </a>
+
+        <!-- Card 4: Taller on desktop -->
+        <a href="#" class="bento-card row-span-2">
+            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80"
+                alt="Skin Cancer Screening">
+            <div class="card-content">
+                <h3>Skin Cancer Screening</h3>
+                <p>Early detection and mole mapping diagnostics.</p>
+            </div>
+        </a>
+
+        <!-- Card 5 -->
+        <a href="#" class="bento-card">
+            <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?auto=format&fit=crop&w=800&q=80"
+                alt="Chemical Peels">
+            <div class="card-content">
+                <h3>Chemical Peels</h3>
+                <p>Exfoliate and rejuvenate your complexion.</p>
+            </div>
+        </a>
+
+        <!-- Card 6 -->
+        <a href="#" class="bento-card">
+            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80"
+                alt="Dermal Fillers">
+            <div class="card-content">
+                <h3>Dermal Fillers</h3>
+                <p>Non-surgical facial contouring.</p>
+            </div>
+        </a>
+
+        <!-- Card 7: Wider on desktop -->
+        <a href="#" class="bento-card span-2">
+            <img src="https://images.unsplash.com/photo-1608285517178-592f4422e6e3?auto=format&fit=crop&w=800&q=80"
+                alt="Hair Loss & PRP Therapy">
+            <div class="card-content">
+                <h3>Hair Loss & PRP Therapy</h3>
+                <p>Stimulate natural hair growth directly at the follicle.</p>
+            </div>
+        </a>
+
+        <!-- Card 8 -->
+        <a href="#" class="bento-card">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80"
+                alt="Pigmentation Treatment">
+            <div class="card-content">
+                <h3>Pigmentation Treatment</h3>
+                <p>Target melasma, sun spots, and uneven tone.</p>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<style>
+    /* Base Reset & Dark Theme */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #000000;
+        /* Pure black background */
+        color: #ffffff;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.5;
+    }
+
+    .services-section {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2rem;
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+
+    /* --- Mobile First Grid --- */
+    .bento-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* --- Bento Card Styling --- */
+    .bento-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        min-height: 250px;
+        border-radius: 20px;
+        overflow: hidden;
+        /* Contains the image */
+        background-color: #000000;
+        text-decoration: none;
+        color: white;
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .bento-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .bento-card img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+
+    /* --- Immersive Border Blur Effect --- */
+    .bento-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        /* 
+    The heavy inset shadow creates the borderless blur. 
+    It melts the edges into the #000 background while leaving the center clear.
+    A slight linear-gradient helps text readability at the bottom.
+  */
+        box-shadow: inset 0 0 50px 25px rgba(0, 0, 0, 1);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 40%);
+        pointer-events: none;
+        /* Allows clicks to pass through to the anchor tag */
+    }
+
+    .card-content {
+        position: relative;
+        z-index: 3;
+        /* Places text above the blur overlay */
+        padding: 24px;
+    }
+
+    .card-content h3 {
+        font-size: 1.25rem;
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
+
+    .card-content p {
+        font-size: 0.875rem;
+        opacity: 0.8;
+    }
+
+    /* --- Tablet Responsiveness --- */
+    @media (min-width: 640px) {
+        .bento-grid {
+            grid-template-columns: repeat(2, 1fr);
+            /* Make the grid dense so items fill empty spaces */
+            grid-auto-flow: dense;
+        }
+    }
+
+    /* --- Desktop Responsiveness (True Bento Layout) --- */
+    @media (min-width: 1024px) {
+        .bento-grid {
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 250px;
+            /* Standardize height for predictable spanning */
+            gap: 20px;
+        }
+
+        /* Reset min-height to rely on grid-auto-rows */
+        .bento-card {
+            min-height: auto;
+        }
+
+        /* Custom spanning classes for the bento layout */
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        .row-span-2 {
+            grid-row: span 2;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
